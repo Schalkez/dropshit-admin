@@ -1,0 +1,373 @@
+[
+  {
+    "name": "Thời trang & Phụ kiện nữ",
+    "slug": "women-clothing-fashion",
+    "subcategories": [
+      {
+        "name": "Đồ lót nữ",
+        "slug": "Women-Underwear-VV7W5"
+      },
+      {
+        "name": "Kính mát nữ",
+        "slug": "Women-Sunglasses-qoNVN"
+      },
+      {
+        "name": "Giày dép nữ",
+        "slug": "women-shoes-rk61s"
+      },
+      {
+        "name": "Kính mắt nữ",
+        "slug": "women-eye-glasses-tjpk4"
+      },
+      {
+        "name": "Quần áo nữ",
+        "slug": "Women-Clothing-O9nEj"
+      },
+      {
+        "name": "Quần áo nữ nội y, ngủ & thư giãn",
+        "slug": "Women-Clothing-Lingerie-Sleep--Lounge-JXhOi"
+      },
+      {
+        "name": "Túi xách nữ",
+        "slug": "Women-Bags-cjsn5"
+      },
+      {
+        "name": "Phụ kiện nữ",
+        "slug": "Women-Accessories-25Cim"
+      },
+      {
+        "name": "Đồ bơi và đồ dạo biển",
+        "slug": "Swimwear-and-Beachwear-bu57h"
+      }
+    ]
+  },
+  {
+    "name": "Đồ dùng cho thú cưng",
+    "slug": "luxury-43d7m",
+    "subcategories": []
+  },
+  {
+    "name": "Thời trang Nam & Phụ kiện",
+    "slug": "men-clothing-men-shoes",
+    "subcategories": [
+      {
+        "name": "Đồ lót nam",
+        "slug": "underwear-usij6"
+      },
+      {
+        "name": "Mũ nam",
+        "slug": "Topi-Pria-nNhrV"
+      },
+      {
+        "name": "Dép nam",
+        "slug": "Sandal-Pria-8qJTS"
+      },
+      {
+        "name": "Kính mát nam",
+        "slug": "Men-Sunglasses-dtGSX"
+      },
+      {
+        "name": "Giày dép nam",
+        "slug": "Men-Shoes-NGV6r"
+      },
+      {
+        "name": "Kính mắt nam",
+        "slug": "Men-Eyeglasses-IaCCW"
+      },
+      {
+        "name": "Quần áo nam",
+        "slug": "Men-Clothing-HjbPr"
+      },
+      {
+        "name": "Túi xách nam",
+        "slug": "men-bags-eisg"
+      },
+      {
+        "name": "Phụ kiện nam",
+        "slug": "Men-Accessories-4MidG"
+      },
+      {
+        "name": "Quần nam",
+        "slug": "Digital-Goods-JkSb2"
+      }
+    ]
+  },
+  {
+    "name": "Du lịch",
+    "slug": "du-lich",
+    "subcategories": []
+  },
+  {
+    "name": "Quà lưu niệm",
+    "slug": "qua-luu-niem",
+    "subcategories": []
+  },
+  {
+    "name": "Thiết bị điện tử",
+    "slug": "thiet-bi-dien-tu",
+    "subCategories": [
+      { "name": "Máy tính bảng", "slug": "may-tinh-bang" },
+      {
+        "name": "Camera an ninh & Hệ thống",
+        "slug": "camera-an-ninh-he-thong"
+      },
+      { "name": "Điện thoại di động", "slug": "dien-thoai-di-dong" },
+      { "name": "Laptop", "slug": "laptop" },
+      {
+        "name": "Gadget & Các máy ảnh khác",
+        "slug": "gadget-cac-may-anh-khac"
+      },
+      { "name": "Máy ảnh kỹ thuật số", "slug": "may-anh-ky-thuat-so" },
+      { "name": "Máy tính để bàn", "slug": "may-tinh-de-ban" },
+      {
+        "name": "Trò chơi trên máy console",
+        "slug": "tro-choi-tren-may-console"
+      },
+      { "name": "Camera hành động / Video", "slug": "camera-hanh-dong-video" }
+    ]
+  },
+
+  {
+    "name": "Trẻ em & Đồ chơi",
+    "slug": "tre-em-do-choi",
+    "subCategories": [
+      { "name": "Đồ chơi & Trò chơi", "slug": "do-choi-tro-choi" },
+      {
+        "name": "Đồ chơi thể thao & Ngoài trời",
+        "slug": "do-choi-the-thao-ngoai-troi"
+      },
+      { "name": "Chăm sóc và cho con bú", "slug": "cham-soc-va-cho-con-bu" },
+      { "name": "Mẹ & Bé", "slug": "me-be" },
+      {
+        "name": "Sữa công thức & Thực phẩm cho bé",
+        "slug": "sua-cong-thuc-thuc-pham-cho-be"
+      },
+      { "name": "Chăm sóc thai kỳ", "slug": "cham-soc-thai-ky" },
+      {
+        "name": "Đồ chơi điều khiển từ xa & Điện tử",
+        "slug": "do-choi-dieu-khien-tu-xa-dien-tu"
+      },
+      { "name": "Tã và Khăn ướt", "slug": "ta-va-khan-uot" },
+      { "name": "Tắm & Chăm sóc cho bé", "slug": "tam-cham-soc-cho-be" },
+      { "name": "Trang thiết bị cho bé", "slug": "trang-thiet-bi-cho-be" },
+      {
+        "name": "Thời trang và phụ kiện cho bé",
+        "slug": "thoi-trang-va-phu-kien-cho-be"
+      }
+    ]
+  },
+  {
+    "name": "Sức khỏe & Làm đẹp",
+    "slug": "suc-khoe-lam-dep",
+    "subCategories": [
+      { "name": "Nước hoa", "slug": "nuoc-hoa" },
+      {
+        "name": "Thiết bị chăm sóc cá nhân",
+        "slug": "thiet-bi-cham-soc-ca-nhan"
+      },
+      { "name": "Chăm sóc nam giới", "slug": "cham-soc-nam-gioi" },
+      { "name": "Trang điểm", "slug": "trang-diem" },
+      { "name": "Chăm sóc tóc", "slug": "cham-soc-toc" },
+      { "name": "Chăm sóc da", "slug": "cham-soc-da" },
+      { "name": "Chăm sóc cá nhân đẹp", "slug": "cham-soc-ca-nhan-dep" },
+      { "name": "Tắm & Cơ thể", "slug": "tam-co-the" }
+    ]
+  },
+  {
+    "name": "Sức khỏe & Làm đẹp",
+    "slug": "suc-khoe-lam-dep",
+    "subcategories": [
+      {
+        "name": "Nước hoa",
+        "slug": "nuoc-hoa"
+      },
+      {
+        "name": "Thiết bị chăm sóc cá nhân",
+        "slug": "thiet-bi-cham-soc-ca-nhan"
+      },
+      {
+        "name": "Chăm sóc nam giới",
+        "slug": "cham-soc-nam-gioi"
+      },
+      {
+        "name": "Trang điểm",
+        "slug": "trang-diem"
+      },
+      {
+        "name": "Chăm sóc tóc",
+        "slug": "cham-soc-toc"
+      },
+      {
+        "name": "Chăm sóc da",
+        "slug": "cham-soc-da"
+      },
+      {
+        "name": "Chăm sóc cá nhân đẹp",
+        "slug": "cham-soc-ca-nhan-dep"
+      },
+      {
+        "name": "Tắm & Cơ thể",
+        "slug": "tam-co-the"
+      }
+    ]
+  },
+  {
+    "name": "Trang trí nhà cửa & Thiết bị gia dụng",
+    "slug": "trang-tri-nha-cua-thiet-bi-gia-dung",
+    "subcategories": [
+      {
+        "name": "Phụ kiện TV",
+        "slug": "phu-kien-tv"
+      },
+      {
+        "name": "Thiết bị video và Truyền hình",
+        "slug": "thiet-bi-video-va-truyen-hinh"
+      },
+      {
+        "name": "Thiết bị nhà bếp nhỏ",
+        "slug": "thiet-bi-nha-bep-nho"
+      },
+      {
+        "name": "Thiết bị làm mát nhỏ & Xử lý không khí",
+        "slug": "thiet-bi-lam-mat-nho-xu-ly-khong-khi"
+      },
+      {
+        "name": "Thiết bị điện gia dụng lớn",
+        "slug": "thiet-bi-dien-gia-dung-lon"
+      },
+      {
+        "name": "Âm thanh nhà",
+        "slug": "am-thanh-nha"
+      },
+      {
+        "name": "Thiết bị gia dụng nhỏ",
+        "slug": "thiet-bi-gia-dung-nho"
+      }
+    ]
+  },
+  {
+    "name": "Nước hoa",
+    "slug": "nuoc-hoa",
+    "subcategories": []
+  },
+  {
+    "name": "Cải Thiện Nhà Cửa & Dụng Cụ",
+    "slug": "cai-thien-nha-cua-dung-cu",
+    "subcategories": [
+      {
+        "name": "Văn phòng phẩm & Đồ thủ công",
+        "slug": "van-phong-pham-do-thu-cong"
+      },
+      {
+        "name": "Nội thất",
+        "slug": "noi-that"
+      },
+      {
+        "name": "Thiết bị giặt là & Vệ sinh",
+        "slug": "thiet-bi-giat-la-ve-sinh"
+      },
+      {
+        "name": "Lưu trữ & Tổ chức",
+        "slug": "luu-tru-to-chuc"
+      },
+      {
+        "name": "Đèn",
+        "slug": "den"
+      },
+      {
+        "name": "Vật Dụng Tắm",
+        "slug": "vat-dung-tam"
+      },
+      {
+        "name": "Bếp & Phòng ăn",
+        "slug": "bep-phong-an"
+      },
+      {
+        "name": "Trang trí nhà cửa",
+        "slug": "trang-tri-nha-cua"
+      },
+      {
+        "name": "Chăn ga gối đệm",
+        "slug": "chan-ga-goi-dem"
+      }
+    ]
+  },
+  {
+    "name": "Hàng Số",
+    "slug": "hang-so",
+    "subcategories": []
+  },
+  {
+    "category": "Tinh dầu làm thơm không khí",
+    "slug": "Air-freshener-7PRdL",
+    "subcategories": []
+  },
+  {
+    "category": "Phụ kiện điện tử",
+    "slug": "electronics-accessories-bja2n",
+    "subcategories": [
+      {
+        "subcategory": "Các thiết bị đeo",
+        "slug": "Wearables-ZFiIG"
+      },
+      {
+        "subcategory": "Máy in",
+        "slug": "Printers-QprK0"
+      },
+      {
+        "subcategory": "Các thành phần mạng",
+        "slug": "Network-Components-QAnIM"
+      },
+      {
+        "subcategory": "Phụ kiện cho điện thoại di động",
+        "slug": "Mobile-Accessories-NbWbX"
+      },
+      {
+        "subcategory": "Bộ nhớ dữ liệu",
+        "slug": "Data-Storage-iRPfg"
+      },
+      {
+        "subcategory": "Phụ kiện cho máy console",
+        "slug": "Console-Gaming-Accessories-q6k14"
+      },
+      {
+        "subcategory": "Thiết Bị Máy Tính",
+        "slug": "Computer-Components-MKkbp"
+      },
+      {
+        "subcategory": "Phụ kiện máy ảnh",
+        "slug": "Camera-Accessories-riR9H"
+      },
+      {
+        "subcategory": "Âm thanh",
+        "slug": "Audio-pblX5"
+      }
+    ]
+  },
+  {
+    "category": "Trang sức & Đồng hồ",
+    "slug": "jewelry--watches-9zv51",
+    "subcategories": [
+      {
+        "subcategory": "Đồng hồ nữ",
+        "slug": "Womens-Watches-A0P8P"
+      },
+      {
+        "subcategory": "Trang sức nữ",
+        "slug": "Women-Jewelry-qZ48u"
+      },
+      {
+        "subcategory": "Đồng hồ nam",
+        "slug": "Mens-Watches-6zFhO"
+      },
+      {
+        "subcategory": "Trang sức nam",
+        "slug": "Men-Jewelry-uJ21t"
+      },
+      {
+        "subcategory": "Móc chìa khóa & Trang trí",
+        "slug": "Keychain--Ornaments-VvJrh"
+      }
+    ]
+  }
+]
