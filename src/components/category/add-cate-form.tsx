@@ -1,4 +1,13 @@
-import { Button, Form, Input, message, Modal, Upload, UploadProps } from "antd";
+import {
+  Button,
+  Form,
+  FormInstance,
+  Input,
+  message,
+  Modal,
+  Upload,
+  UploadProps,
+} from "antd";
 import React, { useRef, useState } from "react";
 import http from "../../utils/http";
 import { apiRoutes } from "../../routes/api";
@@ -12,7 +21,7 @@ export const AddCateForm = ({
   setIsOpen,
   getCate,
 }: any) => {
-  const actionRef = useRef<ActionType>();
+  const actionRef = useRef<FormInstance<any>>(null);
 
   const [imgLoading, setImgLoading] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -47,8 +56,7 @@ export const AddCateForm = ({
         img,
       });
 
-      actionRef.current?.reloadAndRest?.();
-      actionRef.current?.reset?.();
+      actionRef.current?.resetFields();
       message.success("Success");
       await getCate();
       setIsOpen(false);
@@ -64,9 +72,14 @@ export const AddCateForm = ({
       centered
       open={isOpen}
       footer={null}
-      onCancel={() => setIsOpen(false)}
+      onCancel={() => {
+        setIsOpen(false);
+        setImgLoading(false);
+        setLoading(false);
+        setImg("");
+      }}
     >
-      <Form layout="vertical" onFinish={onSubmit}>
+      <Form ref={actionRef} layout="vertical" onFinish={onSubmit}>
         <Form.Item
           label={
             <div>

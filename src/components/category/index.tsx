@@ -25,6 +25,7 @@ import http from "../../utils/http";
 import { apiRoutes } from "../../routes/api";
 import {
   AppstoreOutlined,
+  DeleteOutlined,
   EditOutlined,
   FileAddOutlined,
   MailOutlined,
@@ -34,8 +35,6 @@ import {
 import { UploadProps } from "antd/lib/upload";
 import { handleErrorResponse } from "../../utils";
 import { AddCateForm } from "./add-cate-form";
-
-type MenuItem = Required<MenuProps>["items"][number];
 
 const breadcrumb: BreadcrumbProps = {
   items: [
@@ -51,7 +50,6 @@ const breadcrumb: BreadcrumbProps = {
 };
 
 const Catgoery = () => {
-  const actionRef = useRef<ActionType>();
   const [isOpen, setIsOpen] = useState(false);
   const [parentCategoryId, setParentCategoryId] = useState("");
 
@@ -75,15 +73,25 @@ const Catgoery = () => {
     const subCate = category.subCategories.map((subCategory: any) => ({
       key: subCategory._id,
       label: (
-        <div>
-          {subCategory.name.vi}
-          <EditOutlined
-            style={{ paddingLeft: "10px" }}
-            onClick={(e) => {
-              e.stopPropagation();
-            }}
-          />
-          {isOpen}
+        <div className="flex justify-between">
+          <b>{subCategory.name.vi}</b>
+          <div className="pr-10">
+            <EditOutlined
+              style={{ paddingLeft: "20px" }}
+              onClick={(e) => {
+                e.stopPropagation();
+                setIsOpen(true);
+              }}
+            />
+
+            <DeleteOutlined
+              style={{ paddingLeft: "10px" }}
+              onClick={(e) => {
+                e.stopPropagation();
+                deleteCate(category._id, subCategory._id);
+              }}
+            />
+          </div>
         </div>
       ),
     }));
@@ -110,15 +118,25 @@ const Catgoery = () => {
     const cateList = categories.map((category: any) => ({
       key: category._id,
       label: (
-        <div>
+        <div className="flex justify-between">
           <b>{category.name.vi}</b>
-          <EditOutlined
-            style={{ paddingLeft: "10px" }}
-            onClick={(e) => {
-              e.stopPropagation();
-              setIsOpen(true);
-            }}
-          />
+          <div className="pr-10">
+            <EditOutlined
+              style={{ paddingLeft: "20px" }}
+              onClick={(e) => {
+                e.stopPropagation();
+                setIsOpen(true);
+              }}
+            />
+
+            <DeleteOutlined
+              style={{ paddingLeft: "10px" }}
+              onClick={(e) => {
+                e.stopPropagation();
+                deleteCate(category._id);
+              }}
+            />
+          </div>
         </div>
       ),
       icon: <MailOutlined />,
@@ -145,21 +163,19 @@ const Catgoery = () => {
     return cateList;
   }, [categories]);
 
-  const onDelete = async (id: string) => {
-    http
-      .post(apiRoutes.category + "-delete", {
-        id,
-      })
-      .then((response) => {
-        actionRef.current?.reloadAndRest?.();
-        message.success("Success");
-        setIsOpen(false);
-        console.log(response);
-      })
-      .catch((error) => {
-        handleErrorResponse(error);
-      });
-  };
+  const deleteCate = useCallback(async (id: string, subCateId = "") => {
+    try {
+      await http.delete(
+        `${apiRoutes.category}/${id}${subCateId ? "/" + subCateId : ""}`
+      );
+
+      message.success("Success");
+
+      getCate();
+    } catch (error) {
+      handleErrorResponse(error);
+    }
+  }, []);
 
   return (
     <BasePageContainer breadcrumb={breadcrumb}>
