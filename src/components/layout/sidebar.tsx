@@ -1,12 +1,14 @@
-import { webRoutes } from '../../routes/web';
-import { BiHomeAlt2, BiCategory, BiPackage } from 'react-icons/bi';
+import { webRoutes } from "../../routes/web";
+import { BiHomeAlt2, BiCategory, BiPackage } from "react-icons/bi";
 import Icon, {
   UserOutlined,
   InfoCircleOutlined,
   ShoppingCartOutlined,
   BranchesOutlined,
   ShopOutlined,
-} from '@ant-design/icons';
+  WindowsOutlined,
+  UnorderedListOutlined,
+} from "@ant-design/icons";
 
 export const sidebar = [
   // {
@@ -18,79 +20,85 @@ export const sidebar = [
   {
     path: webRoutes.store,
     key: webRoutes.store,
-    name: 'Người bán',
+    name: "Người bán",
     icon: <ShopOutlined />,
   },
   {
     path: webRoutes.users,
     key: webRoutes.users,
-    name: 'Khách hàng',
+    name: "Khách hàng",
     icon: <UserOutlined />,
   },
   {
     path: webRoutes.employ,
     key: webRoutes.employ,
-    name: 'Nhân viên bán hàng',
+    name: "Nhân viên bán hàng",
     icon: <UserOutlined />,
   },
   {
     path: webRoutes.products,
     key: webRoutes.products,
-    name: 'Sản Phẩm',
+    name: "Sản Phẩm",
     icon: <ShoppingCartOutlined />,
+  },
+  {
+    path: webRoutes.category,
+    key: webRoutes.category,
+    name: "Danh mục sản phẩm",
+    icon: <UnorderedListOutlined />,
+  },
+  {
+    path: webRoutes.brand,
+    key: webRoutes.brand,
+    name: "Thương hiệu",
+    icon: <WindowsOutlined />,
   },
   {
     path: webRoutes.pos,
     key: webRoutes.pos,
-    name: 'POS',
+    name: "POS",
     icon: <ShoppingCartOutlined />,
   },
   {
     path: webRoutes.orders,
     key: webRoutes.orders,
-    name: 'Đơn hàng',
+    name: "Đơn hàng",
     icon: <ShoppingCartOutlined />,
   },
-  // {
-  //   path: webRoutes.category,
-  //   key: webRoutes.category,
-  //   name: 'Thể loại',
-  //   icon: <BiCategory />,
-  // },
   {
     path: webRoutes.branch,
     key: webRoutes.branch,
-    name: 'Nhãn hàng',
+    name: "Nhãn hàng",
     icon: <BranchesOutlined />,
   },
   {
     path: webRoutes.package,
     key: webRoutes.package,
-    name: 'Gói',
+    name: "Gói",
     icon: <BiPackage />,
   },
   {
-    path: '/method-bank',
-    key: '/method-bank',
-    name: 'Phương thức thanh toán',
+    path: "/method-bank",
+    key: "/method-bank",
+    name: "Phương thức thanh toán",
     icon: <BiPackage />,
   },
   {
-    path: '/desposit',
-    key: '/desposit',
-    name: 'Nạp tiền',
+    path: "/desposit",
+    key: "/desposit",
+    name: "Nạp tiền",
     icon: <BiPackage />,
   },
   {
-    path: '/withdraw',
-    key: '/withdraw',
-    name: 'Rút tiền',
+    path: "/withdraw",
+    key: "/withdraw",
+    name: "Rút tiền",
     icon: <BiPackage />,
   },
   {
-    path: '/config',
-    key: '/config',
-    name: 'Cài Đặt',
+    path: "/config",
+    key: "/config",
+    name: "Cài Đặt",
     icon: <BiPackage />,
   },
   // {
