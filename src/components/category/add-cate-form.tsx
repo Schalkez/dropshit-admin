@@ -42,7 +42,7 @@ export const AddCateForm = ({
       if (info.file?.response?.url) setImg(info.file?.response?.url);
     },
   };
-  console.log(parentCategoryId);
+
   const onSubmit = async (form: any) => {
     if (imgLoading) return;
 

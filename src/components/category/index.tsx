@@ -24,6 +24,7 @@ import {
 import http from "../../utils/http";
 import { apiRoutes } from "../../routes/api";
 import {
+  AppstoreAddOutlined,
   AppstoreOutlined,
   DeleteOutlined,
   EditOutlined,
@@ -76,13 +77,13 @@ const Catgoery = () => {
         <div className="flex justify-between">
           <b>{subCategory.name.vi}</b>
           <div className="pr-10">
-            <EditOutlined
+            {/* <EditOutlined
               style={{ paddingLeft: "20px" }}
               onClick={(e) => {
                 e.stopPropagation();
                 setIsOpen(true);
               }}
-            />
+            /> */}
 
             <DeleteOutlined
               style={{ paddingLeft: "10px" }}
@@ -106,7 +107,8 @@ const Catgoery = () => {
             setParentCategoryId(category._id);
           }}
         >
-          Thêm danh mục con cho <b>{category.name.vi}</b>
+          <AppstoreAddOutlined /> Thêm danh mục con cho{" "}
+          <b>{category.name.vi}</b>
         </div>
       ),
     });
@@ -121,13 +123,13 @@ const Catgoery = () => {
         <div className="flex justify-between">
           <b>{category.name.vi}</b>
           <div className="pr-10">
-            <EditOutlined
+            {/* <EditOutlined
               style={{ paddingLeft: "20px" }}
               onClick={(e) => {
                 e.stopPropagation();
                 setIsOpen(true);
               }}
-            />
+            /> */}
 
             <DeleteOutlined
               style={{ paddingLeft: "10px" }}
