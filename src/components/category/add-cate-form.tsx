@@ -8,10 +8,9 @@ import {
   Upload,
   UploadProps,
 } from "antd";
-import React, { useRef, useState } from "react";
+import { useRef, useState } from "react";
 import http from "../../utils/http";
 import { apiRoutes } from "../../routes/api";
-import { ActionType } from "@ant-design/pro-components";
 import { handleErrorResponse } from "../../utils";
 import { UploadOutlined } from "@ant-design/icons";
 
