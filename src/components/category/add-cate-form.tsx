@@ -39,7 +39,10 @@ export const AddCateForm = ({
     },
 
     onChange: (info) => {
-      if (info.file?.response?.url) setImg(info.file?.response?.url);
+      if (info.file?.response?.url) {
+        setImg(info.file?.response?.url);
+        setImgLoading(false);
+      }
     },
   };
 
@@ -76,9 +79,15 @@ export const AddCateForm = ({
         setImgLoading(false);
         setLoading(false);
         setImg("");
+        actionRef.current?.resetFields();
       }}
     >
-      <Form ref={actionRef} layout="vertical" onFinish={onSubmit}>
+      <Form
+        disabled={loading || imgLoading}
+        ref={actionRef}
+        layout="vertical"
+        onFinish={onSubmit}
+      >
         <Form.Item
           label={
             <div>
@@ -166,7 +175,7 @@ export const AddCateForm = ({
             className="bg-primary"
             htmlType="submit"
             loading={loading}
-            disabled={loading}
+            disabled={loading || imgLoading}
           >
             Submit
           </Button>

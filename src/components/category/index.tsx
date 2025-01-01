@@ -95,6 +95,7 @@ const Catgoery = () => {
           </div>
         </div>
       ),
+      icon: <img width={16} height={16} src={subCategory.img} alt="" />,
     }));
 
     subCate.unshift({
@@ -141,7 +142,7 @@ const Catgoery = () => {
           </div>
         </div>
       ),
-      icon: <MailOutlined />,
+      icon: <img width={16} height={16} src={category.img} alt="" />,
       children: handleSubCate(category),
     }));
 
@@ -181,13 +182,14 @@ const Catgoery = () => {
 
   return (
     <BasePageContainer breadcrumb={breadcrumb}>
-      <AddCateForm
-        parentCategoryId={parentCategoryId}
-        getCate={getCate}
-        isOpen={isOpen}
-        setIsOpen={setIsOpen}
-      />
-
+      {isOpen && (
+        <AddCateForm
+          parentCategoryId={parentCategoryId}
+          getCate={getCate}
+          isOpen={isOpen}
+          setIsOpen={setIsOpen}
+        />
+      )}
       <Menu
         style={{ width: "100%" }}
         defaultSelectedKeys={["1"]}
