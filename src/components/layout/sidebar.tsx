@@ -48,12 +48,6 @@ export const sidebar = [
     icon: <UnorderedListOutlined />,
   },
   {
-    path: webRoutes.brand,
-    key: webRoutes.brand,
-    name: "Thương hiệu",
-    icon: <WindowsOutlined />,
-  },
-  {
     path: webRoutes.pos,
     key: webRoutes.pos,
     name: "POS",
@@ -68,7 +62,7 @@ export const sidebar = [
   {
     path: webRoutes.branch,
     key: webRoutes.branch,
-    name: "Nhãn hàng",
+    name: "Nhãn hiệu",
     icon: <BranchesOutlined />,
   },
   {

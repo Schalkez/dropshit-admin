@@ -10,7 +10,6 @@ export const webRoutes = {
   add_products: "/add-products",
   about: "/about",
   category: "/category",
-  brand: "/brand",
   branch: "/branch",
   package: "/package",
   pos: "/pos",
