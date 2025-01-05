@@ -1,20 +1,9 @@
-import {
-  Button,
-  Card,
-  Col,
-  Form,
-  Input,
-  Row,
-  Select,
-  Upload,
-  message,
-} from "antd";
+import { Button, Col, Form, Input, Row, Select, Upload, message } from "antd";
 import FormItem from "antd/es/form/FormItem";
-import { UploadOutlined, LeftOutlined } from "@ant-design/icons";
+import { UploadOutlined } from "@ant-design/icons";
 import ReactQuill from "react-quill";
 import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { webRoutes } from "../../../routes/web";
+import { useNavigate } from "react-router-dom";
 import http from "../../../utils/http";
 import { apiRoutes } from "../../../routes/api";
 import { Option } from "antd/es/mentions";
@@ -24,6 +13,7 @@ import { RootState, store } from "../../../store";
 import { useCategories } from "../../../hooks/useCategories";
 import { useBranches } from "../../../hooks/useBranches";
 import _, { first, flatMap } from "lodash";
+import { useUsers } from "../../../hooks/useUsers";
 
 const EditProduct = ({ editProduct, setIsEditModalOpen, reload }: any) => {
   const [images, setImages] = useState({});
@@ -31,12 +21,18 @@ const EditProduct = ({ editProduct, setIsEditModalOpen, reload }: any) => {
   const [imgLoading, setImgLoading] = useState(false);
   const [product, setProduct] = useState<any>();
 
+  const { users } = useUsers();
+
   useEffect(() => {
-    setProduct({ ...editProduct });
+    setProduct({
+      ...editProduct,
+      sellers: editProduct.sellers.map((seller: any) => seller._id) || [],
+    });
 
     editProduct.images.forEach((image: any, index: number) => {
       setImages((prev: any) => ({
         ...prev,
+
         [index]: image,
       }));
     });
@@ -54,7 +50,6 @@ const EditProduct = ({ editProduct, setIsEditModalOpen, reload }: any) => {
 
   const state: RootState = store.getState();
   const admin = state.admin as any;
-  const navigate = useNavigate();
 
   const props1: UploadProps = {
     name: "file",
@@ -69,9 +64,7 @@ const EditProduct = ({ editProduct, setIsEditModalOpen, reload }: any) => {
     },
   };
 
-  const onSubmit = (form: any) => {
-    console.log(form);
-
+  const onSubmit = () => {
     setLoading(true);
 
     http
@@ -80,6 +73,8 @@ const EditProduct = ({ editProduct, setIsEditModalOpen, reload }: any) => {
         name: product.name,
         quantity: product.quantity,
         price: product.price,
+        sellers: product.sellers,
+        deliveryDays: product.deliveryDays,
         category: product.category._id,
         subCategory: product.subCategory._id,
         images: Object.values(images),
@@ -98,6 +93,15 @@ const EditProduct = ({ editProduct, setIsEditModalOpen, reload }: any) => {
         setLoading(false);
       });
   };
+
+  const onChange = (value: string) => {
+    setProduct((prev: any) => ({ ...prev, sellers: value }));
+  };
+
+  const options = users?.map((user: any) => ({
+    label: user.name,
+    value: user._id,
+  }));
 
   return (
     <Form onFinish={onSubmit} disabled={loading}>
@@ -118,7 +122,28 @@ const EditProduct = ({ editProduct, setIsEditModalOpen, reload }: any) => {
         </Col>
       </Row>
       <Row>
-        <Col span={12}>
+        <Col span={24}>
+          <Form.Item
+            required
+            label="Thời gian vận chuyển"
+            name={"deliveryDays"}
+          >
+            <div className="hidden">{product?.deliveryDays}</div>
+            <Input
+              value={product?.deliveryDays}
+              onChange={(e) =>
+                setProduct((prev: any) => ({
+                  ...prev,
+                  deliveryDays: Number(e.target.value),
+                }))
+              }
+              type="number"
+              required
+              className="h-[40px]"
+            />
+          </Form.Item>
+        </Col>
+        <Col span={24}>
           <Form.Item required label="Số lượng" name={"quantity"}>
             <div className="hidden">{product?.quantity}</div>
             <Input
@@ -137,7 +162,7 @@ const EditProduct = ({ editProduct, setIsEditModalOpen, reload }: any) => {
           </Form.Item>
         </Col>
         <Col span={12}>
-          <Form.Item required label="Giá" name="price">
+          <Form.Item required label="Giá kho" name="price">
             <div className="hidden">{product?.price}</div>
             <Input
               required
@@ -150,6 +175,37 @@ const EditProduct = ({ editProduct, setIsEditModalOpen, reload }: any) => {
                   price: Number(e.target.value),
                 }))
               }
+            />
+          </Form.Item>
+        </Col>
+        <Col span={12}>
+          <Form.Item required label="Giá chốt" name="finalPrice">
+            <div className="hidden">{product?.finalPrice}</div>
+            <Input
+              required
+              type="number"
+              className="h-[40px]"
+              value={product?.finalPrice}
+              onChange={(e) =>
+                setProduct((prev: any) => ({
+                  ...prev,
+                  price: Number(e.target.value),
+                }))
+              }
+            />
+          </Form.Item>
+        </Col>
+        <Col span={12}>
+          <Form.Item required label="Shop" name="shop">
+            <div className="hidden">{JSON.stringify(product?.sellers)}</div>
+            <Select
+              mode="multiple"
+              allowClear
+              style={{ width: "100%" }}
+              placeholder="Please select"
+              value={product?.sellers}
+              onChange={onChange}
+              options={options}
             />
           </Form.Item>
         </Col>

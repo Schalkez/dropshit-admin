@@ -30,7 +30,6 @@ const AddProduct = () => {
   const [image, setImage] = useState([]);
   const [loading, setLoading] = useState(false);
   const [imgLoading, setImgLoading] = useState(false);
-  const [editModalOpen, isEditModalOpen] = useState(false);
 
   const { categories } = useCategories();
   const { branches } = useBranches();
@@ -77,6 +76,8 @@ const AddProduct = () => {
         name: form.name,
         quantity: form.quantity,
         price: form.price,
+        finalPrice: form.finalPrice,
+        deliveryDays: form.deliveryDays,
         category: subCategory.parentCategoryId,
         subCategory: subCategory._id,
         images: image,
@@ -113,7 +114,7 @@ const AddProduct = () => {
           </Col>
         </Row>
         <Row>
-          <Col span={12}>
+          <Col span={24}>
             <Form.Item required label="Số lượng" name={"quantity"}>
               <Input
                 defaultValue={4999}
@@ -123,8 +124,27 @@ const AddProduct = () => {
               />
             </Form.Item>
           </Col>
+          <Col span={24}>
+            <Form.Item
+              required
+              label="Thời gian vận chuyển"
+              name={"deliveryDays"}
+            >
+              <Input
+                defaultValue={7}
+                type="number"
+                required
+                className="h-[40px]"
+              />
+            </Form.Item>
+          </Col>
           <Col span={12}>
-            <Form.Item required label="Giá" name="price">
+            <Form.Item required label="Giá kho" name="price">
+              <Input required type="number" className="h-[40px]" />
+            </Form.Item>
+          </Col>
+          <Col span={12}>
+            <Form.Item required label="Giá chốt" name="finalPrice">
               <Input required type="number" className="h-[40px]" />
             </Form.Item>
           </Col>
