@@ -1,21 +1,21 @@
-import { BreadcrumbProps, Button, message } from 'antd';
-import React, { useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { webRoutes } from '../../routes/web';
-import BasePageContainer from '../layout/PageContainer';
-import {
-  ActionType,
-  ProColumns,
-  ProTable,
-  RequestData,
-} from '@ant-design/pro-components';
-import http from '../../utils/http';
-import { apiRoutes } from '../../routes/api';
-import { handleErrorResponse } from '../../utils';
+import { BreadcrumbProps, Button, message, Modal } from "antd";
+import React, { useRef, useState } from "react";
+import { Link } from "react-router-dom";
+import { webRoutes } from "../../routes/web";
+import BasePageContainer from "../layout/PageContainer";
+import { ActionType, ProColumns, ProTable } from "@ant-design/pro-components";
+import http from "../../utils/http";
+import { apiRoutes } from "../../routes/api";
+import { handleErrorResponse } from "../../utils";
+import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
+import EditProduct from "./edit-product";
 
 const Products = () => {
   const actionRef = useRef<ActionType>();
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
+  const [editModalOpen, setIsEditModalOpen] = useState(false);
+  const [editProduct, setEditProduct] = useState();
+
   const breadcrumb: BreadcrumbProps = {
     items: [
       {
@@ -31,24 +31,27 @@ const Products = () => {
 
   const columns: ProColumns[] = [
     {
-      title: 'Tên sản phẩm',
-      dataIndex: 'name',
+      title: "Tên sản phẩm",
+      dataIndex: "name",
       sorter: false,
-      align: 'center',
+      align: "center",
       ellipsis: true,
       render: (_: any, row: any) => (
-        <div className='text-truncate' style={{
-          maxWidth: "200px"
-        }}>
+        <div
+          className="text-truncate"
+          style={{
+            maxWidth: "200px",
+          }}
+        >
           {row?.name}
         </div>
-      )
+      ),
     },
     {
-      title: 'Hình ảnh',
-      dataIndex: 'images',
+      title: "Hình ảnh",
+      dataIndex: "images",
       sorter: false,
-      align: 'center',
+      align: "center",
       ellipsis: true,
       render: (_: any, row: any) => (
         <div>
@@ -57,51 +60,77 @@ const Products = () => {
       ),
     },
     {
-      title: 'Số lượng',
-      dataIndex: 'quantity',
+      title: "Số lượng",
+      dataIndex: "quantity",
       sorter: false,
-      align: 'center',
+      align: "center",
       ellipsis: true,
     },
     {
-      title: 'Đơn giá',
-      dataIndex: 'price',
+      title: "Đơn giá",
+      dataIndex: "price",
       sorter: false,
-      align: 'center',
+      align: "center",
       ellipsis: true,
       render: (price: any, row: any) => (
         <div>{row?.price?.toLocaleString()}$</div>
       ),
     },
     {
-      title: 'Action',
+      title: "Action",
       sorter: false,
-      align: 'center',
+      align: "center",
       ellipsis: true,
       render: (_: any, row: any) => (
-        <div>
-          <Button type='primary' className='bg-primary' loading={loading} onClick={() => onDelete(row._id)}>Xóa</Button>
+        <div className="flex gap-8 justify-center">
+          <EditOutlined
+            style={{ fontSize: "20px" }}
+            onClick={() => {
+              setIsEditModalOpen(true);
+              setEditProduct(row);
+            }}
+          />
+          <DeleteOutlined
+            style={{ fontSize: "20px" }}
+            onClick={() => onDelete(row._id)}
+          />
         </div>
       ),
     },
   ];
 
   const onDelete = async (id: string) => {
-    setLoading(true)
+    setLoading(true);
     http
-      .post(apiRoutes.product + '-delete', { id })
+      .delete(`${apiRoutes.product}/${id}`)
       .then((response) => {
-        setLoading(false)
-        message.success("Success")
-        actionRef?.current?.reload()
+        setLoading(false);
+        message.success("Success");
+        actionRef?.current?.reload();
       })
       .catch((error) => {
         handleErrorResponse(error);
-        setLoading(false)
+        setLoading(false);
       });
-  }
+  };
+
   return (
     <BasePageContainer breadcrumb={breadcrumb}>
+      <Modal
+        width={"90%"}
+        open={editModalOpen}
+        onCancel={() => {
+          setIsEditModalOpen(false);
+          setEditProduct(undefined);
+        }}
+      >
+        <EditProduct
+          setIsEditModalOpen={setIsEditModalOpen}
+          reload={actionRef?.current?.reload}
+          editProduct={editProduct}
+        />
+      </Modal>
+
       <div className="flex justify-between items-center">
         <h3>Tất cả sản phẩm</h3>
         <Link to={webRoutes.add_products}>
@@ -116,9 +145,8 @@ const Products = () => {
         bordered={true}
         showSorterTooltip={false}
         scroll={{ x: true }}
-        tableLayout={'fixed'}
+        tableLayout={"fixed"}
         rowSelection={false}
-
         pagination={{
           showQuickJumper: true,
           pageSize: 30,
@@ -126,11 +154,11 @@ const Products = () => {
         actionRef={actionRef}
         request={(params) => {
           return http
-            .get(apiRoutes.product, {
+            .get(apiRoutes.products, {
               params: {
                 page: params.current,
                 per_page: params.pageSize,
-                role: "ADMIN"
+                role: "ADMIN",
               },
             })
             .then((response) => {
@@ -140,7 +168,7 @@ const Products = () => {
                 success: true,
               } as any;
             })
-            .catch((error) => { });
+            .catch((error) => {});
         }}
         dateFormatter="string"
         search={false}
