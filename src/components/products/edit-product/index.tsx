@@ -1,4 +1,14 @@
-import { Button, Col, Form, Input, Row, Select, Upload, message } from "antd";
+import {
+  Button,
+  Col,
+  Form,
+  Input,
+  Row,
+  Select,
+  Switch,
+  Upload,
+  message,
+} from "antd";
 import FormItem from "antd/es/form/FormItem";
 import { UploadOutlined } from "@ant-design/icons";
 import ReactQuill from "react-quill";
@@ -74,6 +84,8 @@ const EditProduct = ({ editProduct, setIsEditModalOpen, reload }: any) => {
         quantity: product.quantity,
         price: product.price,
         sellers: product.sellers,
+        isProductFeature: product.isProductFeature,
+        isBestSelling: product.isBestSelling,
         deliveryDays: product.deliveryDays,
         category: product.category._id,
         subCategory: product.subCategory._id,
@@ -140,6 +152,47 @@ const EditProduct = ({ editProduct, setIsEditModalOpen, reload }: any) => {
               type="number"
               required
               className="h-[40px]"
+            />
+          </Form.Item>
+        </Col>
+      </Row>
+      <Row>
+        <Col span={12}>
+          <Form.Item
+            labelCol={{ span: 6 }}
+            required
+            label="Sản phẩm bán chạy"
+            name={"isBestSelling"}
+          >
+            <div className="hidden">{product?.isBestSelling}</div>
+            <Switch
+              value={product?.isBestSelling}
+              onChange={(bol) =>
+                setProduct((prev: any) => ({
+                  ...prev,
+                  isBestSelling: bol,
+                }))
+              }
+            />
+          </Form.Item>
+        </Col>
+        <Row />
+        <Col span={12}>
+          <Form.Item
+            required
+            labelCol={{ span: 6 }}
+            label="Sản phẩm nổi bật"
+            name={"isProductFeature"}
+          >
+            <div className="hidden">{product?.isProductFeature}</div>
+            <Switch
+              value={product?.isProductFeature}
+              onChange={(bol) =>
+                setProduct((prev: any) => ({
+                  ...prev,
+                  isProductFeature: bol,
+                }))
+              }
             />
           </Form.Item>
         </Col>
