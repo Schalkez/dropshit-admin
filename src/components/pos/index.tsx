@@ -36,7 +36,7 @@ const Pos = () => {
 
   const getProductsByUser = async () => {
     http
-      .get(`${API_URL}/profile/get-product-user-employee/${userSelected}`)
+      .get(`${API_URL}/profile/get-shop-products/${userSelected}`)
       .then((response) => {
         setProducts(response.data?.data);
       })
@@ -68,8 +68,9 @@ const Pos = () => {
     http
       .post(`${API_URL}/profile/add-order`, {
         products: productsSelected,
-        user_store: userSelected,
+        // user_store: userSelected,
         user_customer: selectedCustomer,
+        chosenSeller: userSelected,
       })
       .then((response) => {
         setLoading(false);

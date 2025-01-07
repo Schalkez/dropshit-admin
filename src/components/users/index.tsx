@@ -212,7 +212,7 @@ const Users = () => {
   return (
     <BasePageContainer breadcrumb={breadcrumb}>
       <div className="my-5">
-        <Button onClick={() => setIsOpen(true)}>Thêm khách ảo</Button>
+        <Button onClick={() => setIsOpen(true)}>Thêm khách</Button>
       </div>
       <Modal open={isOpen} footer={null} onCancel={() => setIsOpen(false)}>
         <Form
