@@ -1,5 +1,5 @@
-import { combineReducers, configureStore } from '@reduxjs/toolkit';
-import adminSlice, { AdminState } from './slices/adminSlice';
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
+import adminSlice, { AdminState } from "./slices/adminSlice";
 import {
   persistReducer,
   FLUSH,
@@ -8,8 +8,8 @@ import {
   PERSIST,
   PURGE,
   REGISTER,
-} from 'redux-persist';
-import storage from 'redux-persist/lib/storage';
+} from "redux-persist";
+import storage from "redux-persist/lib/storage";
 
 const persistConfig = {
   key: CONFIG.appName,
@@ -35,4 +35,5 @@ export const store = configureStore({
 export type RootState = {
   admin: AdminState;
 };
+
 export type AppDispatch = typeof store.dispatch;
