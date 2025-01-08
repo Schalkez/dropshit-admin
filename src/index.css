@@ -24,6 +24,7 @@
   -webkit-animation: icon-spin 1s infinite linear;
   animation: icon-spin 1s infinite linear;
 }
+
 .search-1 .ant-btn {
   background: #adb8ff !important;
 }
@@ -32,6 +33,7 @@
   0% {
     opacity: 0;
   }
+
   100% {
     opacity: 1;
   }
@@ -41,6 +43,7 @@
   from {
     opacity: 0;
   }
+
   to {
     opacity: 1;
   }
@@ -51,6 +54,7 @@
     -webkit-transform: rotate(0deg);
     transform: rotate(0deg);
   }
+
   100% {
     -webkit-transform: rotate(359deg);
     transform: rotate(359deg);
@@ -62,6 +66,7 @@
     -webkit-transform: rotate(0deg);
     transform: rotate(0deg);
   }
+
   100% {
     -webkit-transform: rotate(359deg);
     transform: rotate(359deg);
@@ -72,4 +77,14 @@
   width: 100px;
   text-align: left !important;
   margin: 0 10px;
+}
+
+
+:where(.css-dev-only-do-not-override-1fxbj94).ant-modal .ant-modal-content {
+  padding: 0;
+}
+
+.modal-title {
+  font-size: 1.25rem;
+  font-weight: 500;
 }
