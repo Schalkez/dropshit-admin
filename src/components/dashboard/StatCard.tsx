@@ -1,13 +1,13 @@
-import { Card, Skeleton, Typography } from 'antd';
-import { useNavigate } from 'react-router-dom';
-import CountUp from 'react-countup';
-import styles from './statCard.module.css';
-import React, { Fragment } from 'react';
+import { Card, Skeleton, Typography } from "antd";
+import { useNavigate } from "react-router-dom";
+import CountUp from "react-countup";
+import styles from "./statCard.module.css";
+import React, { Fragment } from "react";
 
 const { Text } = Typography;
 
 interface StatCardProps {
-  icon: React.ReactNode;
+  icon?: React.ReactNode;
   title: string;
   number: number;
   loading: boolean;
@@ -26,17 +26,19 @@ const StatCard = ({
   const navigate = useNavigate();
 
   const children = (
-    <div style={{ cursor: link ? 'pointer' : 'default' }}>
-      <span className={`${styles.iconWrapper} text-primary text-opacity-80`}>
-        {icon}
-      </span>
+    <div style={{ cursor: link ? "pointer" : "default" }}>
+      {icon && (
+        <span className={`${styles.iconWrapper} text-primary text-opacity-80`}>
+          {icon}
+        </span>
+      )}
       <div className={styles.statContent}>
         <p className={styles.statTitle}>
           <Text
-            style={{ width: '100%', color: 'grey' }}
-            ellipsis={{ tooltip: title || '' }}
+            style={{ width: "100%", color: "grey" }}
+            ellipsis={{ tooltip: title || "" }}
           >
-            {title || ''}
+            {title || ""}
           </Text>
         </p>
         <p className={styles.statNumber}>
@@ -67,7 +69,7 @@ const StatCard = ({
           }}
           size="default"
           bordered={false}
-          style={{ padding: '18px 0' }}
+          style={{ padding: "18px 0" }}
         >
           {children}
         </Card>

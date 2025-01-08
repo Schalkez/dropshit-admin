@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import BasePageContainer from '../layout/PageContainer';
+import { useEffect, useState } from "react";
+import BasePageContainer from "../layout/PageContainer";
 import {
   Avatar,
   BreadcrumbProps,
@@ -11,21 +11,42 @@ import {
   Row,
   Table,
   Tag,
-} from 'antd';
-import { webRoutes } from '../../routes/web';
-import { Link } from 'react-router-dom';
-import StatCard from './StatCard';
-import { AiOutlineStar, AiOutlineTeam } from 'react-icons/ai';
-import Icon from '@ant-design/icons';
-import { BiCommentDetail, BiPhotoAlbum } from 'react-icons/bi';
-import { MdOutlineArticle, MdOutlinePhoto } from 'react-icons/md';
-import { StatisticCard } from '@ant-design/pro-components';
-import LazyImage from '../lazy-image';
-import { User } from '../../interfaces/models/user';
-import http from '../../utils/http';
-import { apiRoutes } from '../../routes/api';
-import { handleErrorResponse } from '../../utils';
-import { Review } from '../../interfaces/models/review';
+} from "antd";
+import { webRoutes } from "../../routes/web";
+import { Link } from "react-router-dom";
+import StatCard from "./StatCard";
+import { AiOutlineStar, AiOutlineTeam } from "react-icons/ai";
+import Icon from "@ant-design/icons";
+import { BiCommentDetail, BiPhotoAlbum } from "react-icons/bi";
+import { MdOutlineArticle, MdOutlinePhoto } from "react-icons/md";
+import { StatisticCard } from "@ant-design/pro-components";
+import LazyImage from "../lazy-image";
+import { User } from "../../interfaces/models/user";
+import http from "../../utils/http";
+import { apiRoutes } from "../../routes/api";
+import { handleErrorResponse } from "../../utils";
+import { Review } from "../../interfaces/models/review";
+import { Line } from "react-chartjs-2";
+import {
+  Chart as ChartJS,
+  LineElement,
+  CategoryScale,
+  LinearScale,
+  Title,
+  Tooltip,
+  Legend,
+  ChartOptions,
+} from "chart.js";
+import SalesChart from "./Chart";
+
+ChartJS.register(
+  LineElement,
+  CategoryScale,
+  LinearScale,
+  Title,
+  Tooltip,
+  Legend
+);
 
 const breadcrumb: BreadcrumbProps = {
   items: [
@@ -129,10 +150,33 @@ const Dashboard = () => {
             number={500}
           />
         </Col>
-       
-        
-     
       </Row>
+
+      <Row gutter={24}>
+        <Col xl={6} lg={6} md={12} sm={24} xs={24} style={{ marginBottom: 24 }}>
+          <StatCard
+            loading={loading}
+            title="Lượt truy cập hàng ngày"
+            number={68}
+          />
+        </Col>
+        <Col xl={6} lg={6} md={12} sm={24} xs={24} style={{ marginBottom: 24 }}>
+          <StatCard
+            loading={loading}
+            title="Lượt truy cập hàng tuân"
+            number={204}
+          />
+        </Col>
+        <Col xl={6} lg={6} md={12} sm={24} xs={24} style={{ marginBottom: 24 }}>
+          <StatCard
+            loading={loading}
+            title="Lượt truy cập hàng tháng"
+            number={2850}
+          />
+        </Col>
+      </Row>
+
+      <SalesChart />
     </BasePageContainer>
   );
 };
