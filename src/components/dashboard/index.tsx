@@ -26,27 +26,8 @@ import http from "../../utils/http";
 import { apiRoutes } from "../../routes/api";
 import { handleErrorResponse } from "../../utils";
 import { Review } from "../../interfaces/models/review";
-import { Line } from "react-chartjs-2";
-import {
-  Chart as ChartJS,
-  LineElement,
-  CategoryScale,
-  LinearScale,
-  Title,
-  Tooltip,
-  Legend,
-  ChartOptions,
-} from "chart.js";
 import SalesChart from "./Chart";
-
-ChartJS.register(
-  LineElement,
-  CategoryScale,
-  LinearScale,
-  Title,
-  Tooltip,
-  Legend
-);
+import OrderModal from "./OrderModal";
 
 const breadcrumb: BreadcrumbProps = {
   items: [
@@ -61,6 +42,7 @@ const Dashboard = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [users, setUsers] = useState<User[]>([]);
   const [reviews, setReviews] = useState<Review[]>([]);
+  const [isOpen, setIsOpen] = useState<boolean>(true);
 
   useEffect(() => {
     Promise.all([loadUsers(), loadReviews()])
@@ -176,7 +158,11 @@ const Dashboard = () => {
         </Col>
       </Row>
 
+      {/* Sales Chart */}
       <SalesChart />
+
+      {/* Order Modal */}
+      <OrderModal isOpen={isOpen} onClose={() => setIsOpen(false)} />
     </BasePageContainer>
   );
 };

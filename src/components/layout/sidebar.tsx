@@ -11,12 +11,12 @@ import Icon, {
 } from "@ant-design/icons";
 
 export const sidebar = [
-  // {
-  //   path: webRoutes.dashboard,
-  //   key: webRoutes.dashboard,
-  //   name: 'Dashboard',
-  //   icon: <Icon component={BiHomeAlt2} />,
-  // },
+  {
+    path: webRoutes.dashboard,
+    key: webRoutes.dashboard,
+    name: "Bảng điều khiển",
+    icon: <Icon component={BiHomeAlt2} />,
+  },
   {
     path: webRoutes.store,
     key: webRoutes.store,
