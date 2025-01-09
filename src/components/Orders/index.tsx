@@ -7,6 +7,25 @@ import Search from "antd/es/input/Search";
 import { SearchProps } from "antd/lib/input";
 import { Option } from "antd/es/mentions";
 
+export const DELIVERY_STATUS_VALUE = {
+  PENDING: "Đang chờ xử lý",
+  CONFIRM: "Đã xác nhận",
+  PICKED_UP: "Đã lấy hàng",
+  ON_THE_WAY: "Đang giao hàng",
+  DELIVERED: "Đã giao hàng",
+} as const;
+
+export const DELIVERY_STATUS = {
+  PENDING: "PENDING",
+  CONFIRM: "CONFIRM",
+  PICKED_UP: "PICKED_UP",
+  ON_THE_WAY: "ON_THE_WAY",
+  DELIVERED: "DELIVERED",
+} as const;
+
+type DELIVERY_STATUS_TYPE =
+  (typeof DELIVERY_STATUS)[keyof typeof DELIVERY_STATUS];
+
 const Order = () => {
   const [orders, setOrders] = useState<any>([]);
   const [loading, setLoading] = useState(false);
@@ -85,11 +104,21 @@ const Order = () => {
             placeholder="Tình trạng giao hàng"
             onChange={handleChange}
           >
-            <Option value="PENDING">Đang chờ xử lý</Option>
-            <Option value="CONFIRM">Đã xác nhận</Option>
-            <Option value="PICKED_UP">Picked Up</Option>
-            <Option value="ON_THE_WAY">On The Way</Option>
-            <Option value="DELIVERED">Đã giao hàng</Option>
+            <Option value={DELIVERY_STATUS.PENDING}>
+              {DELIVERY_STATUS_VALUE.PENDING}
+            </Option>
+            <Option value={DELIVERY_STATUS.CONFIRM}>
+              {DELIVERY_STATUS_VALUE.CONFIRM}
+            </Option>
+            <Option value={DELIVERY_STATUS.PICKED_UP}>
+              {DELIVERY_STATUS_VALUE.PICKED_UP}
+            </Option>
+            <Option value={DELIVERY_STATUS.ON_THE_WAY}>
+              {DELIVERY_STATUS_VALUE.ON_THE_WAY}
+            </Option>
+            <Option value={DELIVERY_STATUS.DELIVERED}>
+              {DELIVERY_STATUS_VALUE.DELIVERED}
+            </Option>
           </Select>
         </div>
         <div className="card-body p-3" style={{ overflow: "auto" }}>
