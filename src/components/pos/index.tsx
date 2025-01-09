@@ -97,7 +97,7 @@ const Pos = () => {
   const getTotalPayment = () => {
     let total = 0;
     productsSelected?.map((item: any) => {
-      total += item?.product?.price * item?.quantity;
+      total += item?.product?.finalPrice * item?.quantity;
     });
     return total;
   };
@@ -211,7 +211,9 @@ const Pos = () => {
                             {item?.name}
                           </div>
                           <div className="">
-                            <span>${(+item?.price)?.toLocaleString()}</span>
+                            <span>
+                              ${(+item?.finalPrice)?.toLocaleString()}
+                            </span>
                           </div>
                         </div>
                         <div

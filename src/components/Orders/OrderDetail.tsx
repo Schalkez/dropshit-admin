@@ -1,10 +1,10 @@
-import { Select, message } from 'antd';
-import { Option } from 'antd/es/mentions';
-import React, { useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { RootState, store } from '../../store';
-import http from '../../utils/http';
-import { API_URL, handleErrorResponse } from '../../utils';
+import { Select, message } from "antd";
+import { Option } from "antd/es/mentions";
+import React, { useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { RootState, store } from "../../store";
+import http from "../../utils/http";
+import { API_URL, handleErrorResponse } from "../../utils";
 
 const OrderDetail = () => {
   const state: RootState = store.getState();
@@ -31,9 +31,9 @@ const OrderDetail = () => {
       })
       .then((response) => {
         setLoading(false);
-        message.success('Success');
+        message.success("Success");
         console.log(response);
-        navigate('/orders');
+        navigate("/orders");
       })
       .catch((error) => {
         handleErrorResponse(error);
@@ -74,11 +74,10 @@ const OrderDetail = () => {
                 Tình trạng thanh toán
               </label>
               <div className="dropdown bootstrap-select form-control aiz-">
-            
                 <Select
                   placeholder="Tình trạng thanh toán"
                   onChange={handleChangeIsPayment}
-                  defaultValue={order?.isPayment ? '1' : '0'}
+                  defaultValue={order?.isPayment ? "1" : "0"}
                 >
                   <Option value="0">Chưa thanh toán</Option>
                   <Option value="1">Đã thanh toán</Option>
@@ -93,7 +92,7 @@ const OrderDetail = () => {
                 defaultValue={order?.status}
                 placeholder="Tình trạng giao hàng"
                 onChange={handleChangeStatus}
-                disabled={order?.status === 'DELIVERED'}
+                disabled={order?.status === "DELIVERED"}
               >
                 <Option value="PENDING">Đang chờ xử lý</Option>
                 <Option value="CONFIRM">Đã xác nhận</Option>
@@ -123,7 +122,7 @@ const OrderDetail = () => {
                   <tr>
                     <td className="text-main text-bold">Đặt hàng #</td>
                     <td className="text-info text-bold text-right">
-                      {' '}
+                      {" "}
                       {order?._id}
                     </td>
                   </tr>
@@ -172,34 +171,34 @@ const OrderDetail = () => {
                   <tr className="bg-trans-dark footable-header">
                     <th
                       className="footable-first-visible"
-                      style={{ display: 'table-cell' }}
+                      style={{ display: "table-cell" }}
                     >
                       tấm hình
                     </th>
                     <th
                       className="text-uppercase footable-last-visible"
-                      style={{ display: 'table-cell' }}
+                      style={{ display: "table-cell" }}
                     >
                       Sự miêu tả
                     </th>
                     <th
                       data-breakpoints="lg"
                       className="text-uppercase"
-                      style={{ display: 'table-cell' }}
+                      style={{ display: "table-cell" }}
                     >
                       QTY
                     </th>
                     <th
                       data-breakpoints="lg"
                       className="min-col text-uppercase text-center"
-                      style={{ display: 'table-cell' }}
+                      style={{ display: "table-cell" }}
                     >
                       Giá bán
                     </th>
                     <th
                       data-breakpoints="lg"
                       className="min-col text-uppercase text-center"
-                      style={{ display: 'table-cell' }}
+                      style={{ display: "table-cell" }}
                     >
                       Toàn bộ
                     </th>
@@ -210,33 +209,33 @@ const OrderDetail = () => {
                     <tr>
                       <td
                         className="footable-first-visible"
-                        style={{ display: 'table-cell' }}
+                        style={{ display: "table-cell" }}
                       >
                         <img height={50} src={item?.product?.images?.[0]} />
                       </td>
 
-                      <td style={{ display: 'table-cell' }}>
+                      <td style={{ display: "table-cell" }}>
                         {item?.product?.name}
                       </td>
                       <td
                         className="text-center"
-                        style={{ display: 'table-cell' }}
+                        style={{ display: "table-cell" }}
                       >
                         {item?.quantity}
                       </td>
                       <td
                         className="text-center"
-                        style={{ display: 'table-cell' }}
+                        style={{ display: "table-cell" }}
                       >
-                        ${(+item?.product?.price)?.toLocaleString()}
+                        ${(+item?.product?.finalPrice)?.toLocaleString()}
                       </td>
                       <td
                         className="text-center"
-                        style={{ display: 'table-cell' }}
+                        style={{ display: "table-cell" }}
                       >
                         $
                         {(
-                          +item?.product?.price * item?.quantity
+                          +item?.product?.finalPrice * item?.quantity
                         )?.toLocaleString()}
                       </td>
                     </tr>
@@ -300,7 +299,7 @@ const OrderDetail = () => {
           <style
             dangerouslySetInnerHTML={{
               __html:
-                '\n                #wuliu .form-control{ width:150px; display:inline-block; margin-top:10px;}\n                #wuliu .btn-add{   margin-left:10px; width:50px;}\n            ',
+                "\n                #wuliu .form-control{ width:150px; display:inline-block; margin-top:10px;}\n                #wuliu .btn-add{   margin-left:10px; width:50px;}\n            ",
             }}
           />
         </div>

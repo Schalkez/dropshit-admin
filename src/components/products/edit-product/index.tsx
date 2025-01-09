@@ -83,6 +83,7 @@ const EditProduct = ({ editProduct, setIsEditModalOpen, reload }: any) => {
         name: product.name,
         quantity: product.quantity,
         price: product.price,
+        finalPrice: product.finalPrice,
         sellers: product.sellers,
         isProductFeature: product.isProductFeature,
         isBestSelling: product.isBestSelling,
@@ -242,7 +243,7 @@ const EditProduct = ({ editProduct, setIsEditModalOpen, reload }: any) => {
               onChange={(e) =>
                 setProduct((prev: any) => ({
                   ...prev,
-                  price: Number(e.target.value),
+                  finalPrice: Number(e.target.value),
                 }))
               }
             />
