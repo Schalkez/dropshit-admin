@@ -8,14 +8,16 @@ import { useNavigate } from "react-router-dom";
 const Pos = () => {
   const state: RootState = store.getState();
   const admin = state.admin as any;
-  const [users, setUsers] = useState([]);
+  const [stores, setStores] = useState([]);
   const [products, setProducts] = useState([]);
   const [userSelected, setUserSelected] = useState("");
   const [productsSelected, setProductsSelected] = useState<any>([]);
   const [dataCustomer, setDataCustomer] = useState<any>([]);
   const [selectedCustomer, setSelectCustomer] = useState("");
   const [loading, setLoading] = useState(false);
-  const naviagte = useNavigate();
+
+  const navigate = useNavigate();
+
   const handleChange = (value: string) => {
     setUserSelected(value);
   };
@@ -28,7 +30,7 @@ const Pos = () => {
       http
         .get(`${API_URL}/admin/all-stores`)
         .then((response) => {
-          setUsers(response.data?.data);
+          setStores(response.data?.data);
         })
         .catch((error) => {});
     } catch (error) {}
@@ -76,7 +78,7 @@ const Pos = () => {
         setLoading(false);
         message.success("Success");
         console.log(response);
-        naviagte("/orders");
+        navigate("/orders");
       })
       .catch((error) => {
         setLoading(false);
@@ -173,10 +175,10 @@ const Pos = () => {
                     placeholder="Chọn cửa hàng"
                     style={{ width: 250 }}
                     className="dropdown bootstrap-select form-control form-control-lg aiz-"
-                    options={users?.map((item: any) => {
+                    options={stores?.map((item: any) => {
                       return {
                         value: item?._id,
-                        label: item?.name,
+                        label: item?.email,
                       };
                     })}
                   />
