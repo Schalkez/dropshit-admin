@@ -6,6 +6,7 @@ import { Pagination, Select, Spin } from "antd";
 import Search from "antd/es/input/Search";
 import { SearchProps } from "antd/lib/input";
 import { Option } from "antd/es/mentions";
+import { DELIVERY_STATUS_COLORS } from "./OrderDetail";
 
 export const DELIVERY_STATUS_VALUE = {
   PENDING: "Đang chờ xử lý",
@@ -180,7 +181,17 @@ const Order = () => {
                     ${(+item?.profit)?.toLocaleString()}
                   </td>
 
-                  <td style={{ display: "table-cell" }}>{item?.status}</td>
+                  <td style={{ display: "table-cell" }}>
+                    {!!item?.status && (
+                      <span
+                        className={`badge badge-inline ${
+                          (DELIVERY_STATUS_COLORS as any)[item.status]
+                        }`}
+                      >
+                        {(DELIVERY_STATUS_VALUE as any)[item.status]}
+                      </span>
+                    )}
+                  </td>
                   <td style={{ display: "table-cell" }}>
                     {!item?.isPayMentStore ? (
                       <span className="badge badge-inline badge-danger">

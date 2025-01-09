@@ -6,6 +6,30 @@ import { RootState, store } from "../../store";
 import http from "../../utils/http";
 import { API_URL, handleErrorResponse } from "../../utils";
 
+export const DELIVERY_STATUS_VALUE = {
+  PENDING: "Đang chờ xử lý",
+  CONFIRM: "Đã xác nhận",
+  PICKED_UP: "Đã lấy hàng",
+  ON_THE_WAY: "Đang giao hàng",
+  DELIVERED: "Đã giao hàng",
+} as const;
+
+export const DELIVERY_STATUS = {
+  PENDING: "PENDING",
+  CONFIRM: "CONFIRM",
+  PICKED_UP: "PICKED_UP",
+  ON_THE_WAY: "ON_THE_WAY",
+  DELIVERED: "DELIVERED",
+} as const;
+
+export const DELIVERY_STATUS_COLORS = {
+  PENDING: "badge-warning", // Màu vàng cho trạng thái đang chờ xử lý
+  CONFIRM: "badge-primary", // Màu xanh đậm cho trạng thái đã xác nhận
+  PICKED_UP: "badge-info", // Màu xanh nhạt cho trạng thái đã lấy hàng
+  ON_THE_WAY: "badge-secondary", // Màu xám nhẹ cho trạng thái đang giao hàng
+  DELIVERED: "badge-success", // Màu xanh lá cho trạng thái đã giao hàng
+} as const;
+
 const OrderDetail = () => {
   const state: RootState = store.getState();
   const admin = state.admin as any;
@@ -13,6 +37,7 @@ const OrderDetail = () => {
   const order = location?.state;
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+
   const handleChangeStatus = async (val: string) => {
     updateOrder(val, null);
   };
@@ -51,6 +76,7 @@ const OrderDetail = () => {
         sellerId: order?.seller,
       })
       .then((response) => {
+        handleChangeStatus(DELIVERY_STATUS.PICKED_UP);
         setLoading(false);
         message.success("Đã thanh toán đơn hàng cho kho");
         navigate("/orders");
@@ -77,18 +103,18 @@ const OrderDetail = () => {
                 Free up frozen funds
               </button>
             </div> */}
-            <div className="col-md-2 d-flex flex-nowrap justify-content-end align-items-end ml-auto">
-              {order?.isPayMentStore ? (
+            <div className="col-md-3 d-flex flex-nowrap justify-content-end align-items-end ml-auto">
+              {order?.isPayment ? (
                 <button type="button" className="btn bg-success text-[#fff]">
-                  Đã thanh toán
+                  Đã thanh toán cho kho
                 </button>
               ) : (
                 <button
                   type="button"
-                  className="btn bg-dark !text-[#fff]"
+                  className="btn bg-warning !text-[#fff]"
                   onClick={handleResolvePaymentOrder}
                 >
-                  Chưa thanh toán
+                  Thanh toán cho kho
                 </button>
               )}
             </div>
@@ -116,13 +142,13 @@ const OrderDetail = () => {
                 defaultValue={order?.status}
                 placeholder="Tình trạng giao hàng"
                 onChange={handleChangeStatus}
-                disabled={order?.status === "DELIVERED"}
+                disabled={order?.status === DELIVERY_STATUS.DELIVERED}
               >
-                <Option value="PENDING">Đang chờ xử lý</Option>
-                <Option value="CONFIRM">Đã xác nhận</Option>
-                <Option value="PICKED_UP">Picked Up</Option>
-                <Option value="ON_THE_WAY">On The Way</Option>
-                <Option value="DELIVERED">Đã giao hàng</Option>
+                <Option value={DELIVERY_STATUS.PENDING}>Đang chờ xử lý</Option>
+                <Option value={DELIVERY_STATUS.CONFIRM}>Đã xác nhận</Option>
+                <Option value={DELIVERY_STATUS.PICKED_UP}>Picked Up</Option>
+                <Option value={DELIVERY_STATUS.ON_THE_WAY}>On The Way</Option>
+                <Option value={DELIVERY_STATUS.DELIVERED}>Đã giao hàng</Option>
               </Select>
             </div>
           </div>
