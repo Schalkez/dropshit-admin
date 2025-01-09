@@ -43,6 +43,26 @@ const OrderDetail = () => {
     setLoading(false);
   };
 
+  const handleResolvePaymentOrder = async () => {
+    setLoading(true);
+    http
+      .post(`${API_URL}/admin/resolvePaymentOrder`, {
+        orderId: order?._id,
+        sellerId: order?.seller,
+      })
+      .then((response) => {
+        setLoading(false);
+        message.success("Đã thanh toán đơn hàng cho kho");
+        navigate("/orders");
+      })
+      .catch((error) => {
+        handleErrorResponse(error);
+        setLoading(false);
+      });
+
+    setLoading(false);
+  };
+
   return (
     <div className="px-15px px-lg-25px">
       <div className="card">
@@ -63,7 +83,11 @@ const OrderDetail = () => {
                   Đã thanh toán
                 </button>
               ) : (
-                <button type="button" className="btn bg-dark !text-[#fff]">
+                <button
+                  type="button"
+                  className="btn bg-dark !text-[#fff]"
+                  onClick={handleResolvePaymentOrder}
+                >
                   Chưa thanh toán
                 </button>
               )}
