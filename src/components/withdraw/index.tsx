@@ -8,27 +8,29 @@ import {
   Tag,
   Upload,
   message,
-} from 'antd';
-import { webRoutes } from '../../routes/web';
-import { Link } from 'react-router-dom';
-import BasePageContainer from '../layout/PageContainer';
-import { ActionType, ProColumns, ProTable } from '@ant-design/pro-components';
-import { useRef, useState } from 'react';
-import http from '../../utils/http';
-import { apiRoutes } from '../../routes/api';
-import { UploadOutlined } from '@ant-design/icons';
-import { UploadProps } from 'antd/lib/upload';
-import { API_URL, handleErrorResponse } from '../../utils';
-import TextArea from 'antd/es/input/TextArea';
+} from "antd";
+import { webRoutes } from "../../routes/web";
+import { Link } from "react-router-dom";
+import BasePageContainer from "../layout/PageContainer";
+import { ActionType, ProColumns, ProTable } from "@ant-design/pro-components";
+import { useRef, useState } from "react";
+import http from "../../utils/http";
+import { apiRoutes } from "../../routes/api";
+import { UploadOutlined } from "@ant-design/icons";
+import { UploadProps } from "antd/lib/upload";
+import { API_URL, handleErrorResponse } from "../../utils";
+import TextArea from "antd/es/input/TextArea";
+
 const Withdraw = () => {
   const actionRef = useRef<ActionType>();
   const [isOpen, setIsOpen] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [img, setImg] = useState('');
+  const [img, setImg] = useState("");
   const [open1, setOpenNote] = useState<any>(false);
+
   const breadcrumb: BreadcrumbProps = {
     items: [
-      { 
+      {
         key: webRoutes.dashboard,
         title: <Link to={webRoutes.category}>Dashboard</Link>,
       },
@@ -38,62 +40,62 @@ const Withdraw = () => {
       },
     ],
   };
+
   const columns: ProColumns[] = [
     {
-      title: 'Ngân hàng',
-      dataIndex: 'bank',
+      title: "Ngân hàng",
+      dataIndex: "bank",
       sorter: false,
-      align: 'left',
+      align: "left",
       ellipsis: true,
       render: (_: any, row: any) => (
         <>
-          <div>Tên : {row?.user?.bankInfo?.nameBank}</div>
-          <div>STK : {row?.user?.bankInfo?.numberBank}</div>
           <div>Tên Chủ Thẻ : {row?.user?.bankInfo?.authorName}</div>
-          <div>Chi nhánh : {row?.user?.bankInfo?.branchBank}</div>
+          <div>STK : {row?.user?.bankInfo?.numberBank}</div>
+          <div>Ngân hàng: {row?.user?.bankInfo?.nameBank}</div>
         </>
       ),
     },
     {
-      title: 'Số lượng',
-      dataIndex: 'moneyPayment',
+      title: "Số lượng",
+      dataIndex: "moneyPayment",
       sorter: false,
-      align: 'center',
+      align: "center",
       ellipsis: true,
       render: (_: any, row: any) => <>{row?.moneyWithDraw?.toLocaleString()}</>,
     },
     {
-      title: 'ID Giao Dịch',
-      dataIndex: '_id',
+      title: "ID Giao Dịch",
+      dataIndex: "_id",
       sorter: false,
-      align: 'center',
+      align: "center",
       ellipsis: true,
     },
     {
-      title: 'Status',
-      dataIndex: 'isResolve',
+      title: "Status",
+      dataIndex: "isResolve",
       sorter: false,
-      align: 'center',
+      align: "center",
       ellipsis: true,
     },
     {
-      title: 'Ngày rút',
-      dataIndex: 'createdAt',
+      title: "Ngày rút",
+      dataIndex: "createdAt",
       sorter: false,
-      align: 'center',
+      align: "center",
       ellipsis: true,
-      render: (_: any, row: any) => new Date(row?.createdAt)?.toLocaleString()
+      render: (_: any, row: any) => new Date(row?.createdAt)?.toLocaleString(),
     },
     {
-      title: 'Action',
+      title: "Action",
       sorter: false,
-      align: 'center',
+      align: "center",
       ellipsis: true,
       render: (_: any, row: any) => (
         <>
-          {row?.isResolve === 'RESOLVE' ? (
+          {row?.isResolve === "RESOLVE" ? (
             <Tag color="success">Đã giải quyết</Tag>
-          ) : row?.isResolve === 'REJECT' ? (
+          ) : row?.isResolve === "REJECT" ? (
             <Tag color="red">Đã Hủy</Tag>
           ) : (
             <div className="flex items-center gap-2">
@@ -105,7 +107,12 @@ const Withdraw = () => {
               >
                 Giải quyết
               </Button>
-              <Button loading={loading} type="primary" className="bg-warning" onClick={()=>setOpenNote(row?._id)}>
+              <Button
+                loading={loading}
+                type="primary"
+                className="bg-warning"
+                onClick={() => setOpenNote(row?._id)}
+              >
                 Hủy
               </Button>
             </div>
@@ -116,10 +123,10 @@ const Withdraw = () => {
   ];
 
   const props: UploadProps = {
-    name: 'file',
+    name: "file",
     action: `${import.meta.env.VITE_API_URL}/upload/file`,
     beforeUpload: (file) => {
-      const isPNG = file.type === 'image/png' || 'image/jpeg';
+      const isPNG = file.type === "image/png" || "image/jpeg";
       if (!isPNG) {
         message.error(`${file.name} is not a png file`);
       }
@@ -140,7 +147,7 @@ const Withdraw = () => {
       .then((response) => {
         actionRef.current?.reloadAndRest?.();
         setLoading(false);
-        message.success('Success');
+        message.success("Success");
         setIsOpen(false);
         console.log(response);
       })
@@ -159,9 +166,9 @@ const Withdraw = () => {
       .then((response) => {
         actionRef.current?.reloadAndRest?.();
         setLoading(false);
-        message.success('Success');
+        message.success("Success");
         setIsOpen(false);
-        setOpenNote(false)
+        setOpenNote(false);
       })
       .catch((error) => {
         handleErrorResponse(error);
@@ -172,18 +179,22 @@ const Withdraw = () => {
   return (
     <BasePageContainer breadcrumb={breadcrumb}>
       <Spin fullscreen spinning={loading} />
-      <Modal centered open={open1} onCancel={()=>setOpenNote(false)} width={400}>
-        <Form onFinish={(form: any)=>onResolve(open1,false,form?.note)}>
-          <Form.Item name='note'>
-            <TextArea placeholder='Ghi chú'/>
+      <Modal
+        centered
+        open={open1}
+        onCancel={() => setOpenNote(false)}
+        width={400}
+      >
+        <Form onFinish={(form: any) => onResolve(open1, false, form?.note)}>
+          <Form.Item name="note">
+            <TextArea placeholder="Ghi chú" />
           </Form.Item>
           <Form.Item>
-            <Button htmlType='submit'>Gửi</Button>
+            <Button htmlType="submit">Gửi</Button>
           </Form.Item>
         </Form>
-
       </Modal>
-  
+
       <Modal
         centered
         open={isOpen}
@@ -191,16 +202,16 @@ const Withdraw = () => {
         onCancel={() => setIsOpen(false)}
       >
         <Form layout="vertical" onFinish={onSubmit}>
-          <Form.Item label="Tên ngân hàng" name={'name'}>
+          <Form.Item label="Tên ngân hàng" name={"name"}>
             <Input className="h-[40px]" />
           </Form.Item>
-          <Form.Item label="Số tài khoản" name={'number'}>
+          <Form.Item label="Số tài khoản" name={"number"}>
             <Input className="h-[40px]" />
           </Form.Item>
-          <Form.Item label="Chủ thẻ" name={'author'}>
+          <Form.Item label="Chủ thẻ" name={"author"}>
             <Input className="h-[40px]" />
           </Form.Item>
-          <Form.Item label="Mô tả" name={'des'}>
+          <Form.Item label="Mô tả" name={"des"}>
             <TextArea className="h-[40px]" rows={4} />
           </Form.Item>
           <Form.Item label="Ảnh biểu tượng">
@@ -227,7 +238,7 @@ const Withdraw = () => {
         bordered={true}
         showSorterTooltip={false}
         scroll={{ x: true }}
-        tableLayout={'fixed'}
+        tableLayout={"fixed"}
         rowSelection={false}
         pagination={{
           showQuickJumper: true,

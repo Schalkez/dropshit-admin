@@ -78,8 +78,8 @@ export const sidebar = [
     icon: <BiPackage />,
   },
   {
-    path: "/desposit",
-    key: "/desposit",
+    path: "/deposit",
+    key: "/deposit",
     name: "Nạp tiền",
     icon: <BiPackage />,
   },
