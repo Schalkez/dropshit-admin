@@ -1,11 +1,11 @@
-import { AxiosError } from 'axios';
-import { toast } from 'sonner';
+import { AxiosError } from "axios";
+import { toast } from "sonner";
 
 export const API_URL = import.meta.env.VITE_API_URL;
 
 export enum NotificationType {
-  ERROR = 'error',
-  SUCCESS = 'success',
+  ERROR = "error",
+  SUCCESS = "success",
 }
 
 export const setPageTitle = (title: string) => {
@@ -13,7 +13,7 @@ export const setPageTitle = (title: string) => {
 };
 
 export const showNotification = (
-  message = 'Something went wrong',
+  message = "Something went wrong",
   type: NotificationType = NotificationType.ERROR,
   description?: string
 ) => {
@@ -30,9 +30,9 @@ export const handleErrorResponse = (
   console.error(error);
 
   if (!errorMessage) {
-    errorMessage = 'Something went wrong';
+    errorMessage = "Something went wrong";
 
-    if (typeof error === 'string') {
+    if (typeof error === "string") {
       try {
         error = JSON.parse(error);
       } catch (error) {
@@ -40,8 +40,11 @@ export const handleErrorResponse = (
       }
     }
 
-    if (error instanceof AxiosError && error?.response?.data?.error) {
-      errorMessage = error.response.data.error;
+    if (
+      error instanceof AxiosError &&
+      (error?.response?.data?.error || error?.response?.data?.message)
+    ) {
+      errorMessage = error.response.data.error || error.response.data.message;
     } else if (error?.message) {
       errorMessage = error.message;
     }
@@ -49,7 +52,7 @@ export const handleErrorResponse = (
 
   showNotification(
     errorMessage &&
-    errorMessage.charAt(0).toUpperCase() + errorMessage.slice(1),
+      errorMessage.charAt(0).toUpperCase() + errorMessage.slice(1),
     NotificationType.ERROR
   );
 

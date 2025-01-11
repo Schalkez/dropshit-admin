@@ -211,9 +211,7 @@ const Pos = () => {
                             {item?.name}
                           </div>
                           <div className="">
-                            <span>
-                              ${(+item?.finalPrice)?.toLocaleString()}
-                            </span>
+                            <span>${(+item?.price)?.toLocaleString()}</span>
                           </div>
                         </div>
                         <div

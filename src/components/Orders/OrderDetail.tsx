@@ -223,20 +223,20 @@ const OrderDetail = () => {
                       className="footable-first-visible"
                       style={{ display: "table-cell" }}
                     >
-                      tấm hình
+                      Hình ảnh
                     </th>
                     <th
                       className="text-uppercase footable-last-visible"
                       style={{ display: "table-cell" }}
                     >
-                      Sự miêu tả
+                      Mô tả
                     </th>
                     <th
                       data-breakpoints="lg"
                       className="text-uppercase"
                       style={{ display: "table-cell" }}
                     >
-                      QTY
+                      Số lượng
                     </th>
                     <th
                       data-breakpoints="lg"
@@ -250,7 +250,7 @@ const OrderDetail = () => {
                       className="min-col text-uppercase text-center"
                       style={{ display: "table-cell" }}
                     >
-                      Toàn bộ
+                      Tạm tính
                     </th>
                   </tr>
                 </thead>
@@ -277,7 +277,7 @@ const OrderDetail = () => {
                         className="text-center"
                         style={{ display: "table-cell" }}
                       >
-                        ${(+item?.product?.finalPrice)?.toLocaleString()}
+                        ${(+item?.product?.price)?.toLocaleString()}
                       </td>
                       <td
                         className="text-center"
@@ -285,7 +285,7 @@ const OrderDetail = () => {
                       >
                         $
                         {(
-                          +item?.product?.finalPrice * item?.quantity
+                          +item?.product?.price * item?.quantity
                         )?.toLocaleString()}
                       </td>
                     </tr>

@@ -193,7 +193,7 @@ const Order = () => {
                     )}
                   </td>
                   <td style={{ display: "table-cell" }}>
-                    {!item?.isPayMentStore ? (
+                    {!item?.isPayment ? (
                       <span className="badge badge-inline badge-danger">
                         Chưa thanh toán
                       </span>
