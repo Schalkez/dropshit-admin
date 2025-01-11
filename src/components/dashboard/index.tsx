@@ -139,21 +139,21 @@ const Dashboard = () => {
           <StatCard
             loading={loading}
             title="Lượt truy cập hàng ngày"
-            number={68}
+            number={3}
           />
         </Col>
         <Col xl={6} lg={6} md={12} sm={24} xs={24} style={{ marginBottom: 24 }}>
           <StatCard
             loading={loading}
             title="Lượt truy cập hàng tuân"
-            number={204}
+            number={32}
           />
         </Col>
         <Col xl={6} lg={6} md={12} sm={24} xs={24} style={{ marginBottom: 24 }}>
           <StatCard
             loading={loading}
             title="Lượt truy cập hàng tháng"
-            number={2850}
+            number={96}
           />
         </Col>
       </Row>
