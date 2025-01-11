@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { RootState, store } from "../../store";
 import { Button, Select, message } from "antd";
 import http from "../../utils/http";
@@ -101,6 +101,7 @@ const Pos = () => {
     });
     return total;
   };
+
   const handleSelectedProducts = (prod: any) => {
     const productFind = productsSelected?.find(
       (item: any) => item?.id === prod?._id

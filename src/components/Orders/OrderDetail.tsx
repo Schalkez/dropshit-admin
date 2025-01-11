@@ -315,7 +315,7 @@ const OrderDetail = () => {
                   <td>
                     <strong className="text-muted">Tổng phụ :</strong>
                   </td>
-                  <td>${(+order?.tongtien)?.toLocaleString()}</td>
+                  <td>${(+order?.gia_kho)?.toLocaleString()}</td>
                 </tr>
                 <tr>
                   <td>
@@ -340,7 +340,7 @@ const OrderDetail = () => {
                     <strong className="text-muted">TOÀN BỘ :</strong>
                   </td>
                   <td className="text-muted h5">
-                    ${(+order?.tongtien)?.toLocaleString()}
+                    ${(+order?.gia_kho)?.toLocaleString()}
                   </td>
                 </tr>
               </tbody>
