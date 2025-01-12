@@ -129,6 +129,7 @@ const Pos = () => {
       ]);
     }
   };
+
   const handleExProducts = (prod: any) => {
     const productFind = productsSelected?.find(
       (item: any) => item?.id === prod?._id
@@ -172,6 +173,8 @@ const Pos = () => {
               <div className="col-md-3 col-6">
                 <div className="">
                   <Select
+                    showSearch
+                    optionFilterProp="label"
                     onChange={handleChange}
                     placeholder="Chọn cửa hàng"
                     style={{ width: 250 }}
