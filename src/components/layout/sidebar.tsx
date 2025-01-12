@@ -71,12 +71,12 @@ export const sidebar = [
     name: "Gói",
     icon: <BiPackage />,
   },
-  {
-    path: "/method-bank",
-    key: "/method-bank",
-    name: "Phương thức thanh toán",
-    icon: <BiPackage />,
-  },
+  // {
+  //   path: "/method-bank",
+  //   key: "/method-bank",
+  //   name: "Phương thức thanh toán",
+  //   icon: <BiPackage />,
+  // },
   {
     path: "/deposit",
     key: "/deposit",
