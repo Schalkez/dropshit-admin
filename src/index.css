@@ -79,11 +79,6 @@
   margin: 0 10px;
 }
 
-
-:where(.css-dev-only-do-not-override-1fxbj94).ant-modal .ant-modal-content {
-  padding: 0;
-}
-
 .modal-title {
   font-size: 1.25rem;
   font-weight: 500;

@@ -93,6 +93,7 @@ const EditProduct = ({ editProduct, setIsEditModalOpen, reload }: any) => {
         images: Object.values(images),
         description: product.description,
         user: admin?.user?._id,
+        saleDefault: product.saleDefault,
       })
       .then((response) => {
         reload();
@@ -294,6 +295,21 @@ const EditProduct = ({ editProduct, setIsEditModalOpen, reload }: any) => {
                 </Option>
               ))}
             </Select>
+          </Form.Item>
+        </Col>
+        <Col span={12}>
+          <Form.Item label="Bán mặc định" name="saleDefault">
+            <div className="hidden">{product?.saleDefault}</div>
+            <Input
+              className="h-[40px]"
+              value={product?.saleDefault}
+              onChange={(e) =>
+                setProduct((prev: any) => ({
+                  ...prev,
+                  saleDefault: e.target.value,
+                }))
+              }
+            />
           </Form.Item>
         </Col>
         <Col span={12}>
