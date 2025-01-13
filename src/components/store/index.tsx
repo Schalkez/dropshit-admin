@@ -170,6 +170,10 @@ const Users = () => {
               <div>{row?.phone}</div>
             </div>
             <div className="flex items-center gap-2">
+              <div className="font-[700]">Số cccd:</div>
+              <div>{row?.store?.cmndNumber}</div>
+            </div>
+            <div className="flex items-center gap-2">
               <div className="font-[700]">CMND mặt trước:</div>
               <a href={row?.store?.cmnd?.before} target="_blank">
                 <img src={row?.store?.cmnd?.before} width={50} />
@@ -381,8 +385,14 @@ const Users = () => {
             })
           }
         >
+          <Form.Item name={"nameStore"} label="Tên cửa hàng">
+            <Input placeholder="Tên cửa hàng" size="middle" />
+          </Form.Item>
           <Form.Item name={"email"} label="Email">
             <Input placeholder="Email" size="middle" />
+          </Form.Item>
+          <Form.Item name={"cmndNumber"} label="Số cccd">
+            <Input placeholder="Số cccd" size="middle" />
           </Form.Item>
           <Form.Item name={"password"} label="Password">
             <Input placeholder="password" size="middle" />

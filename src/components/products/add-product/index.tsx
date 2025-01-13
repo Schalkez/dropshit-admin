@@ -83,6 +83,7 @@ const AddProduct = () => {
         images: image,
         description: value,
         user: admin?.user?._id,
+        saleDefault: form.saleDefault,
       })
       .then((response) => {
         setLoading(false);
@@ -166,6 +167,11 @@ const AddProduct = () => {
                   <Option value={item?._id}>{item?.name}</Option>
                 ))}
               </Select>
+            </Form.Item>
+          </Col>
+          <Col span={12}>
+            <Form.Item label="Bán mặc định" name="saleDefault">
+              <Input className="h-[40px]" />
             </Form.Item>
           </Col>
           <Col span={24}>
