@@ -66,9 +66,11 @@ const Order = () => {
   const onSearch: SearchProps["onSearch"] = (value, _e, info) =>
     getOrders(1, value);
 
-  const handleChange = async (value: string) => {
+  const handleChange = async (value: DELIVERY_STATUS_TYPE) => {
+    console.log(value);
     getOrders(1, "", value);
   };
+
   const handleChange1 = async (value: string) => {
     getOrders(1, "", "", value);
   };

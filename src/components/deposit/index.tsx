@@ -13,20 +13,24 @@ import { webRoutes } from "../../routes/web";
 import { Link } from "react-router-dom";
 import BasePageContainer from "../layout/PageContainer";
 import { ActionType, ProColumns, ProTable } from "@ant-design/pro-components";
-import { useRef, useState } from "react";
+import { Ref, useRef, useState } from "react";
 import http from "../../utils/http";
 import { apiRoutes } from "../../routes/api";
 import { UploadOutlined } from "@ant-design/icons";
 import { UploadProps } from "antd/lib/upload";
 import { API_URL, handleErrorResponse } from "../../utils";
 import TextArea from "antd/es/input/TextArea";
+import { debounce } from "lodash";
+import { set } from "nprogress";
 
 const Deposit = () => {
   const actionRef = useRef<ActionType>();
-  const [isOpen, setIsOpen] = useState(false);
+  const formRef = useRef<HTMLFormElement>(null);
+  const [modal, setModal] = useState(false);
+  const [selectedRow, setSelectedRow] = useState<any>();
   const [loading, setLoading] = useState(false);
   const [img, setImg] = useState("");
-  const [open1, setOpenNote] = useState<any>(false);
+  const [openNote, setOpenNote] = useState<boolean>(false);
 
   const breadcrumb: BreadcrumbProps = {
     items: [
@@ -49,7 +53,6 @@ const Deposit = () => {
       align: "left",
       ellipsis: true,
       render: (_: any, row: any) => {
-        console.log(row);
         return (
           <>
             <div>Tên Chủ Thẻ : {row?.user?.bankInfo?.authorName}</div>
@@ -94,37 +97,46 @@ const Deposit = () => {
       sorter: false,
       align: "center",
       ellipsis: true,
-      render: (_: any, row: any) => (
-        <>
-          {row?.isResolve === "RESOLVE" ? (
-            <Tag color="success">Đã giải quyết</Tag>
-          ) : row?.isResolve === "REJECT" ? (
-            <Tag color="red">Đã Hủy</Tag>
-          ) : (
-            <div className="flex items-center gap-2">
-              <Button
-                loading={loading}
-                type="primary"
-                className="bg-success"
-                onClick={() => onResolve(row._id, true)}
-              >
-                Giải quyết
-              </Button>
-              <Button
-                loading={loading}
-                type="primary"
-                className="bg-warning"
-                onClick={() => setOpenNote(row?._id)}
-              >
-                Hủy
-              </Button>
-            </div>
-          )}
-        </>
-      ),
+      render: (_: any, row: any) => {
+        return (
+          <>
+            {row?.isResolve === "RESOLVE" ? (
+              <Tag color="success">Đã giải quyết</Tag>
+            ) : row?.isResolve === "REJECT" ? (
+              <Tag color="red">Đã Hủy</Tag>
+            ) : (
+              <div className="flex items-center gap-2">
+                <Button
+                  loading={loading}
+                  type="primary"
+                  className="bg-success"
+                  onClick={() => {
+                    setSelectedRow(row);
+                    // debounce(() => setModal(true), 200)();
+                    setModal(true);
+                  }}
+                >
+                  Giải quyết
+                </Button>
+                <Button
+                  loading={loading}
+                  type="primary"
+                  className="bg-warning"
+                  onClick={() => {
+                    setOpenNote(true);
+                    setSelectedRow(row);
+                  }}
+                >
+                  Hủy
+                </Button>
+              </div>
+            )}
+          </>
+        );
+      },
     },
   ];
-
+  console.log(selectedRow);
   const props: UploadProps = {
     name: "file",
     action: `${import.meta.env.VITE_API_URL}/upload/file`,
@@ -141,38 +153,25 @@ const Deposit = () => {
     },
   };
 
-  const onSubmit = async (form: any) => {
-    setLoading(true);
-    http
-      .post(`${API_URL}/admin/addBankMethod`, {
-        ...form,
-        img,
-      })
-      .then((response) => {
-        actionRef.current?.reloadAndRest?.();
-        setLoading(false);
-        message.success("Success");
-        setIsOpen(false);
-        console.log(response);
-      })
-      .catch((error) => {
-        handleErrorResponse(error);
-        setLoading(false);
-      });
-  };
-
-  const onResolve = async (id: string, isResolve: boolean, note?: string) => {
+  const onResolve = async (
+    id: string,
+    isResolve: boolean,
+    moneyPayment: number,
+    note?: string
+  ) => {
     http
       .post(`${API_URL}/admin/resolve-payment`, {
         id,
         isResolve,
+        moneyPayment,
         note,
       })
       .then((response) => {
         actionRef.current?.reloadAndRest?.();
         setLoading(false);
         message.success("Success");
-        setIsOpen(false);
+        setModal(false);
+        setSelectedRow(undefined);
         setOpenNote(false);
       })
       .catch((error) => {
@@ -184,23 +183,80 @@ const Deposit = () => {
   return (
     <BasePageContainer breadcrumb={breadcrumb}>
       <Spin fullscreen spinning={loading} />
-      <Modal
-        centered
-        open={open1}
-        onCancel={() => setOpenNote(false)}
-        width={400}
-      >
-        <Form onFinish={(form: any) => onResolve(open1, false, form?.note)}>
-          <Form.Item name="note">
-            <TextArea placeholder="Ghi chú" />
-          </Form.Item>
-          <Form.Item>
-            <Button htmlType="submit">Gửi</Button>
-          </Form.Item>
-        </Form>
-      </Modal>
 
-      <Modal
+      {selectedRow && modal && (
+        <Modal
+          centered
+          open={modal}
+          onCancel={() => {
+            setModal(false);
+            setSelectedRow(undefined);
+            formRef.current?.reset();
+          }}
+          width={400}
+          footer={null}
+        >
+          <form
+            ref={formRef}
+            className="mt-5"
+            onSubmit={(event) => {
+              event.preventDefault();
+              const form = event.currentTarget;
+              const formData = new FormData(form);
+              const moneyPayment = formData.get("moneyPayment") as string;
+              onResolve(selectedRow._id, true, Number(moneyPayment));
+            }}
+          >
+            <Form.Item name="Cộng ví giao hàng">
+              <Input
+                defaultValue={selectedRow.moneyPayment}
+                placeholder={selectedRow.moneyPayment}
+                name="moneyPayment"
+                type="number"
+                addonBefore="$"
+              />
+            </Form.Item>
+
+            <Form.Item className="flex justify-end">
+              <Button htmlType="submit">Cộng ví giao hàng</Button>
+            </Form.Item>
+          </form>
+        </Modal>
+      )}
+
+      {openNote && selectedRow && (
+        <Modal
+          centered
+          open={openNote}
+          onCancel={() => {
+            setOpenNote(false);
+          }}
+          width={400}
+          footer={null}
+        >
+          <form
+            ref={formRef}
+            className="mt-5"
+            onSubmit={(event) => {
+              event.preventDefault();
+              const form = event.currentTarget;
+              const formData = new FormData(form);
+              const note = formData.get("note") as string;
+              onResolve(selectedRow._id, false, 0, note);
+            }}
+          >
+            <Form.Item label="Lý do từ chối" name="Lý do từ chối">
+              <Input placeholder="từ chối" name="note" />
+            </Form.Item>
+
+            <Form.Item className="flex justify-end">
+              <Button htmlType="submit">Ok</Button>
+            </Form.Item>
+          </form>
+        </Modal>
+      )}
+
+      {/* <Modal
         centered
         open={isOpen}
         footer={null}
@@ -236,7 +292,7 @@ const Deposit = () => {
             </Button>
           </Form.Item>
         </Form>
-      </Modal>
+      </Modal> */}
       <ProTable
         columns={columns}
         cardBordered={false}

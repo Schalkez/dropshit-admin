@@ -1,4 +1,4 @@
-import { Select, message } from "antd";
+import { Button, Form, Input, Modal, Select, message } from "antd";
 import { Option } from "antd/es/mentions";
 import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -36,9 +36,17 @@ const OrderDetail = () => {
   const location = useLocation();
   const order = location?.state;
   const navigate = useNavigate();
+
   const [loading, setLoading] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
 
   const handleChangeStatus = async (val: string) => {
+    console.log(val);
+
+    if (val === DELIVERY_STATUS.DELIVERED) {
+      setOpenModal(true);
+      return;
+    }
     updateOrder(val, null);
   };
 
@@ -46,22 +54,24 @@ const OrderDetail = () => {
     updateOrder(null, val);
   };
 
-  const updateOrder = async (status: any, isPayment: any) => {
+  const updateOrder = async (status: any, isPayment: any, plusMoney = 0) => {
     setLoading(true);
     http
       .post(`${API_URL}/profile/updateOrder`, {
         orderId: order?._id,
         isPayment,
         status,
+        plusMoney,
       })
       .then((response) => {
-        setLoading(false);
         message.success("Success");
         console.log(response);
         navigate("/orders");
       })
       .catch((error) => {
         handleErrorResponse(error);
+      })
+      .finally(() => {
         setLoading(false);
       });
 
@@ -91,6 +101,42 @@ const OrderDetail = () => {
 
   return (
     <div className="px-15px px-lg-25px">
+      <Modal
+        open={openModal}
+        footer={null}
+        onCancel={() => setOpenModal(false)}
+      >
+        <Form
+          disabled={loading}
+          onFinish={async (form) => {
+            await updateOrder(DELIVERY_STATUS.DELIVERED, null, form.tongtien);
+            setOpenModal(false);
+          }}
+        >
+          <div className="mb-2">Cộng tiền vào ví của shop</div>
+          <Form.Item
+            rules={[
+              {
+                required: true,
+                message: "Vui lòng nhập số lớn hơn 0",
+              },
+              {
+                validator: (_, value) =>
+                  value > 0
+                    ? Promise.resolve()
+                    : Promise.reject("Số phải lớn hơn 0"),
+              },
+            ]}
+          >
+            <Input type="number" min={0} defaultValue={order?.tongtien} />
+          </Form.Item>
+          <Form.Item className="flex justify-end w-full">
+            <Button htmlType="submit" disabled={loading}>
+              Cộng ví vào shop
+            </Button>
+          </Form.Item>
+        </Form>
+      </Modal>
       <div className="card">
         <div className="card-header">
           <h1 className="h2 fs-16 mb-0">Chi tiết đơn hàng</h1>

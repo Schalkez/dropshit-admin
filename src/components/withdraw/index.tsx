@@ -26,7 +26,9 @@ const Withdraw = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [img, setImg] = useState("");
-  const [open1, setOpenNote] = useState<any>(false);
+  const [open1, setOpenNote] = useState(false);
+  const [inputModalOpen, setInputModalOpen] = useState(false);
+  const [selectedRow, setSelectedRow] = useState<any>();
 
   const breadcrumb: BreadcrumbProps = {
     items: [
@@ -103,7 +105,10 @@ const Withdraw = () => {
                 loading={loading}
                 type="primary"
                 className="bg-success"
-                onClick={() => onResolve(row._id, true)}
+                onClick={() => {
+                  setSelectedRow(row);
+                  setInputModalOpen(true);
+                }}
               >
                 Giải quyết
               </Button>
@@ -111,7 +116,10 @@ const Withdraw = () => {
                 loading={loading}
                 type="primary"
                 className="bg-warning"
-                onClick={() => setOpenNote(row?._id)}
+                onClick={() => {
+                  setOpenNote(true);
+                  setSelectedRow(row);
+                }}
               >
                 Hủy
               </Button>
@@ -156,11 +164,18 @@ const Withdraw = () => {
         setLoading(false);
       });
   };
-  const onResolve = async (id: string, isResolve: boolean, note?: string) => {
+
+  const onResolve = async (
+    id: string,
+    isResolve: boolean,
+    customMoney?: number,
+    note?: string
+  ) => {
     http
       .post(`${API_URL}/admin/resolve-with-draw`, {
         id,
         isResolve,
+        customMoney,
         note,
       })
       .then((response) => {
@@ -169,6 +184,7 @@ const Withdraw = () => {
         message.success("Success");
         setIsOpen(false);
         setOpenNote(false);
+        setSelectedRow(undefined);
       })
       .catch((error) => {
         handleErrorResponse(error);
@@ -179,23 +195,85 @@ const Withdraw = () => {
   return (
     <BasePageContainer breadcrumb={breadcrumb}>
       <Spin fullscreen spinning={loading} />
-      <Modal
-        centered
-        open={open1}
-        onCancel={() => setOpenNote(false)}
-        width={400}
-      >
-        <Form onFinish={(form: any) => onResolve(open1, false, form?.note)}>
-          <Form.Item name="note">
-            <TextArea placeholder="Ghi chú" />
-          </Form.Item>
-          <Form.Item>
-            <Button htmlType="submit">Gửi</Button>
-          </Form.Item>
-        </Form>
-      </Modal>
+      {!!selectedRow && (
+        <Modal
+          centered
+          footer={null}
+          open={open1}
+          onCancel={() => {
+            setOpenNote(false);
+            setSelectedRow(undefined);
+          }}
+          width={400}
+        >
+          <Form
+            onFinish={(form: any) =>
+              onResolve(selectedRow._id, false, undefined, form?.note)
+            }
+          >
+            <div className="mb-2">Lý do từ chối </div>
+            <Form.Item name="note">
+              <TextArea placeholder="Ghi chú" />
+            </Form.Item>
+            <Form.Item className="flex justify-end">
+              <Button htmlType="submit">Từ chối</Button>
+            </Form.Item>
+          </Form>
+        </Modal>
+      )}
 
-      <Modal
+      {!!selectedRow && (
+        <Modal
+          centered
+          footer={null}
+          open={inputModalOpen}
+          onCancel={() => {
+            setInputModalOpen(false);
+            setSelectedRow(undefined);
+          }}
+          width={400}
+        >
+          <Form
+            onFinish={async (form: any) =>
+              await onResolve(
+                selectedRow._id,
+                true,
+                form.moneyWithDraw || selectedRow.moneyWithDraw,
+                form?.note
+              )
+            }
+          >
+            <div className="mb-2">Trừ tiền ví shop</div>
+            <Form.Item
+              name="moneyWithDraw"
+              rules={[
+                { required: true, message: "Vui lòng nhập số tiền!" },
+                () => ({
+                  validator(_, value) {
+                    if (value === undefined || value === null || value > 0) {
+                      return Promise.resolve();
+                    }
+                    return Promise.reject(new Error("Giá trị phải lớn hơn 0!"));
+                  },
+                }),
+              ]}
+            >
+              <Input
+                type="number"
+                name="moneyWithDraw"
+                value={selectedRow?.moneyWithDraw}
+                defaultValue={selectedRow?.moneyWithDraw}
+                addonBefore="$"
+              />
+            </Form.Item>
+            <Form.Item className="flex justify-end">
+              <Button htmlType="submit">Trừ ví shop</Button>
+            </Form.Item>
+          </Form>
+        </Modal>
+      )}
+
+      {/* <Modal
         centered
         open={isOpen}
         footer={null}
@@ -231,7 +309,7 @@ const Withdraw = () => {
             </Button>
           </Form.Item>
         </Form>
-      </Modal>
+      </Modal> */}
       <ProTable
         columns={columns}
         cardBordered={false}
