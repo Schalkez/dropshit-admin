@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import http from "../../utils/http";
-import { API_URL } from "../../utils";
-import { Pagination, Select, Spin } from "antd";
+import { API_URL, handleErrorResponse } from "../../utils";
+import { message, Modal, Pagination, Select, Spin } from "antd";
 import Search from "antd/es/input/Search";
 import { SearchProps } from "antd/lib/input";
 import { Option } from "antd/es/mentions";
@@ -30,6 +30,8 @@ type DELIVERY_STATUS_TYPE =
 const Order = () => {
   const [orders, setOrders] = useState<any>([]);
   const [loading, setLoading] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const [orderId, setOrderId] = useState("");
 
   const handleChangePage = async (page: number) => {
     getOrders(page);
@@ -69,6 +71,30 @@ const Order = () => {
   };
   const handleChange1 = async (value: string) => {
     getOrders(1, "", "", value);
+  };
+
+  const handleOpen = (id: string) => {
+    setIsOpen(true);
+    setOrderId(id);
+  };
+
+  const handleDelete = async () => {
+    if (!orderId) {
+      message.error("Vui lớn chọn đơn hàng");
+      return;
+    }
+
+    http
+      .delete(`${API_URL}/admin/delete-order/${orderId}`)
+      .then((response) => {
+        message.success("Xoá đơn hàng thành công");
+        setIsOpen(false);
+        getOrders();
+      })
+      .catch((error) => {
+        handleErrorResponse(error);
+        setLoading(false);
+      });
   };
 
   return (
@@ -226,6 +252,13 @@ const Order = () => {
                     >
                       <i className="fas fa-eye text-primary" />
                     </Link>
+
+                    <div
+                      className="btn btn-soft-info btn-icon btn-circle btn-sm ml-2 cursor-pointer"
+                      onClick={() => handleOpen(item._id)}
+                    >
+                      <i className="fas fa-trash text-danger" />
+                    </div>
                   </td>
                 </tr>
               ))}
@@ -241,6 +274,13 @@ const Order = () => {
           </div>
         </div>
       </div>
+      <Modal
+        title="Bạn có chắc chắn xoá đơn hàng không?"
+        open={isOpen}
+        onCancel={() => setIsOpen(false)}
+        onOk={handleDelete}
+        okButtonProps={{ style: { backgroundColor: "red" } }}
+      ></Modal>
     </div>
   );
 };
