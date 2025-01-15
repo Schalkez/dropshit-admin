@@ -10,7 +10,8 @@
     "lint": "eslint --ext .js,.jsx,.ts,.tsx .",
     "lint:fix": "eslint --ext .js,.jsx,.ts,.tsx --fix .",
     "prettier": "prettier --check \"./**/*.{js,jsx,ts,tsx,css,md,json}\"",
-    "prettier:fix": "prettier --write \"./**/*.{js,jsx,ts,tsx,css,md,json}\""
+    "prettier:fix": "prettier --write \"./**/*.{js,jsx,ts,tsx,css,md,json}\"",
+    "build:prod": "npm run build && mv dist /var/www/html/dropship-admin || mkdir -p /var/www/html/dropship-admin && mv dist /var/www/html/dropship-admin"
   },
   "dependencies": {
     "@ant-design/icons": "^5.5.2",
