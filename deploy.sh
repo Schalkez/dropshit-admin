@@ -1,6 +1,6 @@
-if [ -d /var/www/html/dropship-admin/dist ]; then
-  rm -rf /var/www/html/dropship-admin/dist
+if [ -d /var/www/html/dropshit-admin/dist ]; then
+  rm -rf /var/www/html/dropshit-admin/dist
 fi
 
 npm run build
-mv dist /var/www/html/dropship-admin
+mv dist /var/www/html/dropshit-admin
