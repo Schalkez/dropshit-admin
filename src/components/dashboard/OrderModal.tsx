@@ -48,7 +48,7 @@ const OrderModal: React.FC<AddToCartProps> = ({
   }, []);
 
   return (
-    <Modal footer={null} closeIcon={false} open={isOpen} width={600}>
+    <Modal footer={null} closeIcon={false} open={false} width={600}>
       <div className="modal-content">
         <div className="modal-header">
           <h5 className="modal-title">Đặt hàng</h5>
