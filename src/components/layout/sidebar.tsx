@@ -95,10 +95,16 @@ export const sidebar = [
     name: "Cài Đặt",
     icon: <BiPackage />,
   },
-  // {
-  //   path: webRoutes.about,
-  //   key: webRoutes.about,
-  //   name: 'About',
-  //   icon: <InfoCircleOutlined />,
-  // },
+  {
+    path: webRoutes.trust,
+    key: webRoutes.trust,
+    name: "Điểm tín nhiệm",
+    icon: <InfoCircleOutlined />,
+  },
+  {
+    path: webRoutes.daily_access,
+    key: webRoutes.daily_access,
+    name: "Lượt truy cập",
+    icon: <InfoCircleOutlined />,
+  },
 ];

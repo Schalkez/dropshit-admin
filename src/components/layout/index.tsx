@@ -1,35 +1,38 @@
-import { Outlet, useLocation, useNavigate } from 'react-router-dom';
-import { webRoutes } from '../../routes/web';
-import { Dropdown } from 'antd';
-import { ProLayout, ProLayoutProps } from '@ant-design/pro-components';
-import Icon, { LogoutOutlined } from '@ant-design/icons';
-import { useDispatch } from 'react-redux';
-import { logout } from '../../store/slices/adminSlice';
-import { memo } from 'react';
-import { sidebar } from './sidebar';
-import { apiRoutes } from '../../routes/api';
-import http from '../../utils/http';
-import { handleErrorResponse } from '../../utils';
-import { RiShieldUserFill } from 'react-icons/ri';
-import { RootState, store } from '../../store';
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
+import { webRoutes } from "../../routes/web";
+import { Dropdown } from "antd";
+import { ProLayout, ProLayoutProps } from "@ant-design/pro-components";
+import Icon, { LogoutOutlined } from "@ant-design/icons";
+import { useDispatch } from "react-redux";
+import { logout } from "../../store/slices/adminSlice";
+import { memo } from "react";
+import { sidebar } from "./sidebar";
+import { apiRoutes } from "../../routes/api";
+import http from "../../utils/http";
+import { handleErrorResponse } from "../../utils";
+import { RiShieldUserFill } from "react-icons/ri";
+import { RootState, store } from "../../store";
 
 const Layout = () => {
   const location = useLocation();
   const state: RootState = store.getState();
-  const admin = state.admin as any
+  const admin = state.admin as any;
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const keys = admin?.user?.roles[0]?.code === 'ADMIN' ? [] : [...admin?.user?.keys, '/employ']
+  const keys =
+    admin?.user?.roles[0]?.code === "ADMIN"
+      ? []
+      : [...admin?.user?.keys, "/employ"];
   const defaultProps: ProLayoutProps = {
     title: CONFIG.appName,
-    logo: '/icon.png',
+    logo: "/icon.png",
     fixedHeader: true,
     fixSiderbar: true,
     layout: CONFIG.theme.sidebarLayout,
     route: {
       routes: sidebar.map((i) => {
-        if (!keys.includes(i.key)) return i
+        if (!keys.includes(i.key)) return i;
       }),
     },
   };
@@ -51,7 +54,7 @@ const Layout = () => {
         {...defaultProps}
         token={{
           sider: {
-            colorMenuBackground: 'white',
+            colorMenuBackground: "white",
           },
         }}
         location={location}
@@ -69,9 +72,9 @@ const Layout = () => {
         )}
         avatarProps={{
           icon: <Icon component={RiShieldUserFill} />,
-          className: 'bg-primary bg-opacity-20 text-primary text-opacity-90',
-          size: 'small',
-          shape: 'square',
+          className: "bg-primary bg-opacity-20 text-primary text-opacity-90",
+          size: "small",
+          shape: "square",
           title: admin?.user?.roles[0]?.code,
           render: (_, dom) => {
             return (
@@ -79,9 +82,9 @@ const Layout = () => {
                 menu={{
                   items: [
                     {
-                      key: 'logout',
+                      key: "logout",
                       icon: <LogoutOutlined />,
-                      label: 'Logout',
+                      label: "Logout",
                       onClick: () => {
                         logoutAdmin();
                       },
