@@ -128,7 +128,7 @@ const OrderDetail = () => {
               },
             ]}
           >
-            <Input type="number" min={0} defaultValue={order?.tongtien} />
+            <Input type="number" defaultValue={order?.tongtien} />
           </Form.Item>
           <Form.Item className="flex justify-end w-full">
             <Button htmlType="submit" disabled={loading}>
