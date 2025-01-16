@@ -65,12 +65,12 @@ export const sidebar = [
     name: "Nhãn hiệu",
     icon: <BranchesOutlined />,
   },
-  {
-    path: webRoutes.package,
-    key: webRoutes.package,
-    name: "Gói",
-    icon: <BiPackage />,
-  },
+  // {
+  //   path: webRoutes.package,
+  //   key: webRoutes.package,
+  //   name: "Gói",
+  //   icon: <BiPackage />,
+  // },
   // {
   //   path: "/method-bank",
   //   key: "/method-bank",
