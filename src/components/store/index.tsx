@@ -63,7 +63,9 @@ const Users = () => {
   const [selectUser, setSelectUser] = useState<any>(null);
   const [loading, setLoading] = useState(false);
   const [isEdit, setIsEdit] = useState<any>();
+
   const [form] = Form.useForm();
+
   const columns: ProColumns[] = [
     // {
     //   title: 'Avatar',
@@ -122,8 +124,12 @@ const Users = () => {
             <div>{row?.password || ""}</div>
           </div>
           <div className="flex items-center gap-2">
-            <div className="font-[700]">Số dư:</div>
-            <div>{row?.money?.toLocaleString()}</div>
+            <div className="font-[700]">Ví giao hàng:</div>
+            <div>${row?.deliveryWallet?.toLocaleString()}</div>
+          </div>
+          <div className="flex items-center gap-2">
+            <div className="font-[700]">Ví shop:</div>
+            <div>${row?.shopWallet?.toLocaleString()}</div>
           </div>
         </div>
       ),
