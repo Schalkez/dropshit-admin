@@ -418,8 +418,11 @@ const Users = () => {
           <Form.Item name={"authorName"} label="Tên chủ thẻ">
             <Input placeholder="Tên chủ thẻ" size="middle" />
           </Form.Item>
-          <Form.Item name={"money"} label="Số dư ví">
-            <Input placeholder="Số dư ví" size="middle" />
+          <Form.Item name={"deliveryWallet"} label="Ví giao hàng">
+            <Input placeholder="Số dư ví giao hàng" size="middle" />
+          </Form.Item>
+          <Form.Item name={"shopWallet"} label="Ví shop">
+            <Input placeholder="Số dư ví shop" size="middle" />
           </Form.Item>
           <Form.Item>
             <Button htmlType="submit" className="!bg-primary">
