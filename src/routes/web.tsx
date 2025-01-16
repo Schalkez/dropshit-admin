@@ -14,4 +14,6 @@ export const webRoutes = {
   package: "/package",
   pos: "/pos",
   orders: "/orders",
+  trust: "/trust",
+  daily_access: "/daily-access",
 };

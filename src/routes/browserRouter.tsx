@@ -13,6 +13,8 @@ import About from "../components/demo-pages/about";
 import Deposit from "../components/deposit";
 import Config from "../components/config";
 import Withdraw from "../components/withdraw";
+import DailyAccess from "../components/daily-access";
+import Trust from "../components/trust";
 
 const errorElement = <ErrorPage />;
 const fallbackElement = <ProgressBar />;
@@ -159,6 +161,14 @@ export const browserRouter = createBrowserRouter([
       {
         path: webRoutes.about,
         element: <About />,
+      },
+      {
+        path: webRoutes.daily_access,
+        element: <DailyAccess />,
+      },
+      {
+        path: webRoutes.trust,
+        element: <Trust />,
       },
     ],
   },
