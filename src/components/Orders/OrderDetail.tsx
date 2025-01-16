@@ -109,12 +109,14 @@ const OrderDetail = () => {
         <Form
           disabled={loading}
           onFinish={async (form) => {
-            await updateOrder(DELIVERY_STATUS.DELIVERED, null, form.tongtien);
+            await updateOrder(DELIVERY_STATUS.DELIVERED, null, form.plusMoney);
             setOpenModal(false);
           }}
         >
           <div className="mb-2">Cộng tiền vào ví của shop</div>
           <Form.Item
+            name={"plusMoney"}
+            initialValue={order?.tongtien}
             rules={[
               {
                 required: true,
@@ -128,7 +130,7 @@ const OrderDetail = () => {
               },
             ]}
           >
-            <Input type="number" defaultValue={order?.tongtien} />
+            <Input type="number" name="plusMoney" />
           </Form.Item>
           <Form.Item className="flex justify-end w-full">
             <Button htmlType="submit" disabled={loading}>
@@ -307,7 +309,11 @@ const OrderDetail = () => {
                         className="footable-first-visible"
                         style={{ display: "table-cell" }}
                       >
-                        <img height={50} src={item?.product?.images?.[0]} />
+                        <img
+                          height={50}
+                          width={50}
+                          src={item?.product?.images?.[0]}
+                        />
                       </td>
 
                       <td style={{ display: "table-cell" }}>

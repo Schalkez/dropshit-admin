@@ -455,7 +455,7 @@ const Users = () => {
           <Form.Item name={"packageId"} label="Gói cửa hàng">
             <Select options={antdPackages} defaultValue={antdPackages[0]} />
           </Form.Item>
-          <Form.Item name={"deliveryWallet"} label="Gói cửa hàng">
+          <Form.Item name={"deliveryWallet"} label="Ví giao hàng">
             <Input placeholder="Số dư ví giao hàng" size="middle" />
           </Form.Item>
           <Form.Item name={"shopWallet"} label="Ví shop">
