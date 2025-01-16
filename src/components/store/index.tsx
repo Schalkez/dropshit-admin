@@ -12,6 +12,7 @@ import {
   Form,
   Input,
   Modal,
+  Select,
   Space,
   Spin,
   Switch,
@@ -56,6 +57,38 @@ const breadcrumb: BreadcrumbProps = {
     },
   ],
 };
+
+const packages = [
+  {
+    id: 1,
+    name: "Cửa hàng bạc",
+    image:
+      "https://img5.yeshen.cc/vn-alibaba/Sy/Mk/SyqDc5uzmWrov40pGMxNL4GTSZXFAO54c7jrLxMk.png",
+  },
+  {
+    id: 2,
+    name: "Bạch kim",
+    image:
+      "https://img1.yeshen.cc/vn-alibaba/eT/yJ/eTUiDIEkPQqYJrIPqvApjbl4WfREeXrJh9Tk0TyJ.png",
+  },
+  {
+    id: 3,
+    name: "Kim cương",
+    image:
+      "https://img5.yeshen.cc/vn-alibaba/wT/QJ/wTKXbOLRZ0qFQRmlXQK4u92LRPsZqAWvYzai5yQJ.png",
+  },
+  {
+    id: 4,
+    name: "Legend",
+    image:
+      "https://img2.yeshen.cc/vn-alibaba/zH/Hu/zHvk64iw577WV8yTxor8nyxGoayHj5OXHmjpHEHu.png",
+  },
+];
+
+const antdPackages = packages.map((item) => ({
+  label: item.name,
+  value: item.name,
+}));
 
 const Users = () => {
   const actionRef = useRef<ActionType>();
@@ -123,6 +156,7 @@ const Users = () => {
             <div className="font-[700]">Mật khẩu:</div>
             <div>{row?.password || ""}</div>
           </div>
+
           <div className="flex items-center gap-2">
             <div className="font-[700]">Ví giao hàng:</div>
             <div>${row?.deliveryWallet?.toLocaleString()}</div>
@@ -418,7 +452,10 @@ const Users = () => {
           <Form.Item name={"authorName"} label="Tên chủ thẻ">
             <Input placeholder="Tên chủ thẻ" size="middle" />
           </Form.Item>
-          <Form.Item name={"deliveryWallet"} label="Ví giao hàng">
+          <Form.Item name={"packageId"} label="Gói cửa hàng">
+            <Select options={antdPackages} defaultValue={antdPackages[0]} />
+          </Form.Item>
+          <Form.Item name={"deliveryWallet"} label="Gói cửa hàng">
             <Input placeholder="Số dư ví giao hàng" size="middle" />
           </Form.Item>
           <Form.Item name={"shopWallet"} label="Ví shop">
